@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    background: #111; /* black */
+    background: #111;
     box-shadow: 0 2px 20px rgba(140,21,21,0.10);
 }
 .navbar {
@@ -20,7 +20,7 @@ header {
     padding: 1em 2em;
 }
 .navbar-logo {
-    color: #8C1515; /* Cardinal red */
+    color: #8C1515;
     font-size: 1.7em;
     font-weight: 700;
     letter-spacing: 2px;
@@ -33,11 +33,11 @@ nav a {
     transition: color 0.2s, border-bottom 0.2s;
 }
 nav a.active, nav a:hover {
-    color: #FFC1E0; /* Pink highlight */
-    border-bottom: 2px solid #8C1515; /* Cardinal underline */
+    color: #FFC1E0;
+    border-bottom: 2px solid #8C1515;
 }
 .social-icons a {
-    color: #FFC1E0; /* Pink icons */
+    color: #FFC1E0;
     font-size: 1.3em;
     margin-left: 18px;
     transition: color 0.2s;
@@ -45,6 +45,7 @@ nav a.active, nav a:hover {
 .social-icons a:hover {
     color: #fff;
 }
+
 main {
     display: flex;
     justify-content: center;
@@ -53,6 +54,7 @@ main {
     position: relative;
     z-index: 1;
 }
+
 .about-card {
     background: rgba(255,255,255,0.96);
     border-radius: 18px;
@@ -66,35 +68,51 @@ main {
     gap: 2em;
     position: relative;
     z-index: 2;
-    border: 2px solid #FFC1E0; /* Pink border */
+    border: 2px solid #FFC1E0;
 }
+
+/* LEFT BLOCK: stacks profile pic and brain vertically */
+.left-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 2em;
+}
+
+/* Profile picture style */
 .profile-pic {
     border-radius: 50%;
     width: 160px;
     height: 160px;
     object-fit: cover;
     box-shadow: 0 6px 18px rgba(140,21,21,0.10);
-    border: 4px solid #FFC1E0; /* Pink border */
-    margin-right: 2em;
+    border: 4px solid #FFC1E0;
+    margin-bottom: 1em;
 }
+
+/* Brain block for image + caption */
 .brain-block {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 2em;
+    margin-bottom: 1em;
 }
+
+/* Make your brain image bigger! */
 .brain-graphic {
-    width: 90px;
-    height: 90px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
-    margin-top: 60px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border-radius: 15px;
     box-shadow: 0 2px 12px rgba(220,60,130,0.18);
-    background: #fff0f5; /* Soft pink bg */
+    background: #fff0f5;
     transition: opacity 0.6s;
 }
+
 .brain-caption {
-    font-size: 0.55rem;
+    font-size: 0.95rem;
     color: #8C1515;
     background: #FFC1E0;
     border-radius: 6px;
@@ -105,13 +123,16 @@ main {
     letter-spacing: 1px;
     font-weight: 600;
     font-family: 'Montserrat', Arial, sans-serif;
+    text-align: center;
 }
 
+/* Main content section style */
 .about-card section {
     flex: 1;
 }
+
 h2 {
-    color: #8C1515; /* Cardinal red */
+    color: #8C1515;
     margin-top: 0;
     margin-bottom: 1em;
     font-size: 2rem;
@@ -122,6 +143,26 @@ p {
     margin-bottom: 1.1em;
     color: #2d2d2d;
 }
+
+/* CV page nice button for CV link */
+.cv-link {
+    display: inline-block;
+    background: #FFC1E0;
+    color: #8C1515;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 7px;
+    box-shadow: 0 2px 8px rgba(140,21,21,0.13);
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.07em;
+}
+.cv-link:hover {
+    background: #8C1515;
+    color: #fff;
+}
+
+/* Animated floating circles background */
 .background-circles {
     position: fixed;
     top: 0; left: 0;
@@ -138,7 +179,7 @@ p {
     display: block;
     width: 70px; height: 70px;
     border-radius: 50%;
-    background: rgba(255,193,224,0.13); /* Semi-transparent pink */
+    background: rgba(255,193,224,0.13);
     animation: floatCircles 20s linear infinite;
 }
 .background-circles li:nth-child(1) { left: 8%; top: 60%; animation-delay: 0s;}
@@ -149,11 +190,14 @@ p {
 .background-circles li:nth-child(6) { left: 50%; top: 18%; animation-delay: 10s;}
 .background-circles li:nth-child(7) { left: 77%; top: 84%; animation-delay: 12s;}
 .background-circles li:nth-child(8) { left: 33%; top: 24%; animation-delay: 14s;}
+
 @keyframes floatCircles {
     0% { transform: translateY(0); }
     50% { transform: translateY(-35px) scale(1.1);}
     100% { transform: translateY(0); }
 }
+
+/* RESPONSIVE FOR MOBILE */
 @media (max-width: 900px) {
     .about-card {
         flex-direction: column;
@@ -161,26 +205,11 @@ p {
         padding: 1.5em 1em;
         gap: 0;
     }
-    .profile-pic, .brain-block {
-        margin: 0 0 1.5em 0;
+    .left-block {
+        margin-right: 0;
+        margin-bottom: 1.5em;
     }
     main {
         padding: 0 0.5em;
     }
-}
-.cv-link {
-    display: inline-block;
-    background: #FFC1E0;
-    color: #8C1515;
-    font-weight: 600;
-    text-decoration: none;
-    padding: 10px 18px;
-    border-radius: 7px;
-    box-shadow: 0 2px 8px rgba(140,21,21,0.13);
-    transition: background 0.2s, color 0.2s;
-    font-size: 1.07em;
-}
-.cv-link:hover {
-    background: #8C1515;
-    color: #fff;
 }
