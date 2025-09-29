@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Gracie Grimsrud - About</title>
-    <!-- Include your custom CSS file -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Modern Google Font for headings and body text -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -12,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <!-- Header with navigation and profile name -->
     <header>
         <div class="navbar">
             <div class="navbar-logo">Gracie Grimsrud</div>
@@ -28,16 +26,15 @@
             </div>
         </div>
     </header>
-    <!-- Main content area with gradient background -->
     <main>
         <div class="about-card">
-            <!-- Profile photo -->
             <img src="assets/profile_pic.jpg" alt="Gracie Grimsrud" class="profile-pic">
-            <!-- Rotating brain image -->
-            <img id="brain-graphic" src="assets/brain1.png" alt="Brain graphic" class="brain-graphic">
 
-            <div class="brain-caption">my functional networks!</div>
-            <!-- Rotating functionality with fade animation -->
+            <div class="brain-block">
+                <img id="brain-graphic" src="assets/brain1.png" alt="Brain graphic" class="brain-graphic">
+                <div class="brain-caption">my functional networks!</div>
+            </div>
+
             <script>
               const brainImages = [
                   "assets/brain1.png",
@@ -48,7 +45,6 @@
               const brainImg = document.getElementById('brain-graphic');
               let currentIndex = 0;
               function rotateBrain() {
-                  // Fade out
                   brainImg.style.opacity = 0;
                   setTimeout(() => {
                       currentIndex = (currentIndex + 1) % brainImages.length;
@@ -58,7 +54,7 @@
               }
               setInterval(rotateBrain, 2000);
             </script>
-            <!-- Bio/description text -->
+
             <section>
                 <h2>About Me</h2>
                 <p>
