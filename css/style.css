@@ -9,8 +9,8 @@ body {
 
 /* NAVBAR DESIGN */
 header {
-    background: #23243a;
-    box-shadow: 0 2px 20px rgba(60,60,95,0.07);
+    background: #3a2323;
+    box-shadow: 0 2px 20px rgba(58, 35, 35,0.07);
 }
 .navbar {
     display: flex;
@@ -21,7 +21,7 @@ header {
     padding: 1em 2em;
 }
 .navbar-logo {
-    color: #b366ff;
+    color: #f50505;
     font-size: 1.7em;
     font-weight: 700;
     letter-spacing: 2px;
@@ -34,11 +34,11 @@ nav a {
     transition: color 0.2s;
 }
 nav a.active, nav a:hover {
-    color: #b366ff;
-    border-bottom: 2px solid #b366ff;
+    color: #f50505;
+    border-bottom: 2px solid #f50505;
 }
 .social-icons a {
-    color: #b366ff;
+    color: #f50505;
     font-size: 1.3em;
     margin-left: 18px;
     transition: color 0.2s;
