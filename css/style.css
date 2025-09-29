@@ -1,16 +1,17 @@
-/* Use Montserrat for a modern professional look */
 body {
     font-family: 'Montserrat', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(115deg, #e3f0ff 0%, #ffe3fc 100%);
+    /* Cardinal, pink, and white gradient background */
+    background: linear-gradient(120deg, #8C1515 0%, #FFC1E0 50%, #fff 100%);
     min-height: 100vh;
+    color: #2d2d2d; /* near black for readable body text */
 }
 
 /* NAVBAR DESIGN */
 header {
-    background: #3a2323;
-    box-shadow: 0 2px 20px rgba(58, 35, 35,0.07);
+    background: #111; /* true black */
+    box-shadow: 0 2px 20px rgba(140,21,21,0.10);
 }
 .navbar {
     display: flex;
@@ -21,30 +22,30 @@ header {
     padding: 1em 2em;
 }
 .navbar-logo {
-    color: #f50505;
+    color: #8C1515; /* Cardinal red */
     font-size: 1.7em;
     font-weight: 700;
     letter-spacing: 2px;
 }
 nav a {
-    color: #fff;
+    color: #fff; /* White links */
     margin: 0 16px;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.2s;
+    transition: color 0.2s, border-bottom 0.2s;
 }
 nav a.active, nav a:hover {
-    color: #f50505;
-    border-bottom: 2px solid #f50505;
+    color: #FFC1E0; /* Pink highlight on hover/active */
+    border-bottom: 2px solid #8C1515; /* Cardinal underline */
 }
 .social-icons a {
-    color: #f50505;
+    color: #FFC1E0; /* Pink icons */
     font-size: 1.3em;
     margin-left: 18px;
     transition: color 0.2s;
 }
 .social-icons a:hover {
-    color: #fff;
+    color: #fff; /* White on hover */
 }
 
 /* ABOUT CARD */
@@ -57,9 +58,9 @@ main {
     z-index: 1;
 }
 .about-card {
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.96); /* Whiter card */
     border-radius: 18px;
-    box-shadow: 0 8px 32px rgba(81, 102, 255, 0.14);
+    box-shadow: 0 8px 32px rgba(140, 21, 21, 0.14); /* Cardinal red shadow */
     padding: 2.5em 2em;
     display: flex;
     flex-direction: row;
@@ -69,7 +70,7 @@ main {
     gap: 2em;
     position: relative;
     z-index: 2;
-    border: 1px solid #e3d7ff;
+    border: 2px solid #FFC1E0; /* Pink border for accent */
 }
 
 /* PROFILE PICTURE STYLE */
@@ -78,8 +79,8 @@ main {
     width: 160px;
     height: 160px;
     object-fit: cover;
-    box-shadow: 0 6px 18px rgba(81, 102, 255, 0.10);
-    border: 4px solid #f5e9ff;
+    box-shadow: 0 6px 18px rgba(140,21,21,0.10); /* Cardinal red shadow */
+    border: 4px solid #FFC1E0; /* Pink border */
     margin-right: 2em;
 }
 
@@ -91,9 +92,9 @@ main {
     object-fit: contain;
     margin-top: 60px;
     border-radius: 15px;
-    box-shadow: 0 2px 12px rgba(179,102,255,0.17);
-    background: #f7f3ff;
-    transition: opacity 0.6s; /* Smooth fade effect */
+    box-shadow: 0 2px 12px rgba(220,60,130,0.18); /* Pinky shadow */
+    background: #fff0f5; /* Soft pink bg */
+    transition: opacity 0.6s;
 }
 
 /* SECTION STYLE */
@@ -101,7 +102,7 @@ main {
     flex: 1;
 }
 h2 {
-    color: #304ffe;
+    color: #8C1515; /* Cardinal red for headings */
     margin-top: 0;
     margin-bottom: 1em;
     font-size: 2rem;
@@ -110,7 +111,7 @@ h2 {
 p {
     line-height: 1.7em;
     margin-bottom: 1.1em;
-    color: #363848;
+    color: #2d2d2d; /* readable dark text on white/pink */
 }
 
 /* FLOATING BACKGROUND CIRCLES FOR SUBTLE ANIMATION */
@@ -130,19 +131,18 @@ p {
     display: block;
     width: 70px; height: 70px;
     border-radius: 50%;
-    background: rgba(179,102,255,0.10);
+    background: rgba(255,193,224,0.13); /* Semi-transparent pink */
     animation: floatCircles 20s linear infinite;
 }
-.background-circles li:nth-child(1) { left: 8%; top: 60%; width:70px; height:70px; animation-delay: 0s;}
-.background-circles li:nth-child(2) { left: 12%; top: 6%; width:50px; height:50px; animation-delay: 2s;}
-.background-circles li:nth-child(3) { left: 68%; top: 30%; width:60px; height:60px; animation-delay: 4s;}
-.background-circles li:nth-child(4) { left: 85%; top: 70%; width:40px; height:40px; animation-delay: 6s;}
-.background-circles li:nth-child(5) { left: 28%; top: 80%; width:60px; height:60px; animation-delay: 8s;}
-.background-circles li:nth-child(6) { left: 50%; top: 18%; width:52px; height:52px; animation-delay: 10s;}
-.background-circles li:nth-child(7) { left: 77%; top: 84%; width:57px; height:57px; animation-delay: 12s;}
-.background-circles li:nth-child(8) { left: 33%; top: 24%; width:38px; height:38px; animation-delay: 14s;}
+.background-circles li:nth-child(1) { left: 8%; top: 60%; animation-delay: 0s;}
+.background-circles li:nth-child(2) { left: 12%; top: 6%; animation-delay: 2s;}
+.background-circles li:nth-child(3) { left: 68%; top: 30%; animation-delay: 4s;}
+.background-circles li:nth-child(4) { left: 85%; top: 70%; animation-delay: 6s;}
+.background-circles li:nth-child(5) { left: 28%; top: 80%; animation-delay: 8s;}
+.background-circles li:nth-child(6) { left: 50%; top: 18%; animation-delay: 10s;}
+.background-circles li:nth-child(7) { left: 77%; top: 84%; animation-delay: 12s;}
+.background-circles li:nth-child(8) { left: 33%; top: 24%; animation-delay: 14s;}
 
-/* ANIMATION FOR BACKGROUND CIRCLES */
 @keyframes floatCircles {
     0% { transform: translateY(0); }
     50% { transform: translateY(-35px) scale(1.1);}
