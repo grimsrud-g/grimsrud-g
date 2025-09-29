@@ -39,30 +39,30 @@
             
             <script>
               // Array of the brain image filenames
-  const brainImages = [
-    "assets/brain1.png",
-    "assets/brain2.png",
-    "assets/brain3.png",
-    "assets/brain4.png"
-  ];
-
-  const brainImg = document.getElementById('brain-graphic');
-  let currentIndex = 0;
-
-  function rotateBrain() {
-    // Fade out
-    brainImg.style.opacity = 0;
-    // After 300ms, change image and fade in
-    setTimeout(() => {
-      currentIndex = (currentIndex + 1) % brainImages.length;
-      brainImg.src = brainImages[currentIndex];
-      brainImg.style.opacity = 1;
-    }, 300);
-  }
-
-  setInterval(rotateBrain, 2000);
-
-            <section>
+                      const brainImages = [
+                        "assets/brain1.png",
+                        "assets/brain2.png",
+                        "assets/brain3.png",
+                        "assets/brain4.png"
+                      ];
+                    
+                      const brainImg = document.getElementById('brain-graphic');
+                      let currentIndex = 0;
+                    
+                      function rotateBrain() {
+                        // Fade out
+                        brainImg.style.opacity = 0;
+                        // After 300ms, change image and fade in
+                        setTimeout(() => {
+                          currentIndex = (currentIndex + 1) % brainImages.length;
+                          brainImg.src = brainImages[currentIndex];
+                          brainImg.style.opacity = 1;
+                        }, 300);
+                      }
+                    
+                      setInterval(rotateBrain, 2000);
+                    
+                                <section>
                 <h2>About Me</h2>
                 <!-- Main bio text -->
                 <p>
