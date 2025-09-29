@@ -168,3 +168,19 @@ p {
         padding: 0 0.5em;
     }
 }
+.cv-link {
+    display: inline-block;
+    background: #FFC1E0;
+    color: #8C1515;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 7px;
+    box-shadow: 0 2px 8px rgba(140,21,21,0.13);
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.07em;
+}
+.cv-link:hover {
+    background: #8C1515;
+    color: #fff;
+}
