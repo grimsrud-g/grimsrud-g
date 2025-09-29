@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gracie Grimsrud - About</title>
+    <!-- Include your custom CSS file -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Modern Google Font for headings and body text -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -14,7 +15,7 @@
     <!-- Header with navigation and profile name -->
     <header>
         <div class="navbar">
-            <div class="navbar-logo">Gracie Grimsrud<!-- Site branding --></div>
+            <div class="navbar-logo">Gracie Grimsrud</div>
             <nav>
                 <a href="index.html" class="active">About</a>
                 <a href="publications.html">Publications</a>
@@ -22,7 +23,6 @@
                 <a href="research.html">Projects</a>
             </nav>
             <div class="social-icons">
-                <!-- Social links with icons -->
                 <a href="https://www.linkedin.com/in/gracie-grimsrud-761087206/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="mailto:grimsrud@stanford.edu" title="Email"><i class="fa fa-envelope"></i></a>
             </div>
@@ -31,40 +31,34 @@
     <!-- Main content area with gradient background -->
     <main>
         <div class="about-card">
-            <!-- Profile photo as a circular card -->
+            <!-- Profile photo -->
             <img src="assets/profile_pic.jpg" alt="Gracie Grimsrud" class="profile-pic">
-            
-            <!-- brain image as: -->
+            <!-- Rotating brain image -->
             <img id="brain-graphic" src="assets/brain1.png" alt="Brain graphic" class="brain-graphic">
-            
+            <!-- Rotating functionality with fade animation -->
             <script>
-              // Array of the brain image filenames
-                      const brainImages = [
-                        "assets/brain1.png",
-                        "assets/brain2.png",
-                        "assets/brain3.png",
-                        "assets/brain4.png"
-                      ];
-                    
-                      const brainImg = document.getElementById('brain-graphic');
-                      let currentIndex = 0;
-                    
-                      function rotateBrain() {
-                        // Fade out
-                        brainImg.style.opacity = 0;
-                        // After 300ms, change image and fade in
-                        setTimeout(() => {
-                          currentIndex = (currentIndex + 1) % brainImages.length;
-                          brainImg.src = brainImages[currentIndex];
-                          brainImg.style.opacity = 1;
-                        }, 300);
-                      }
-                    
-                      setInterval(rotateBrain, 2000);
-                    
-                                <section>
+              const brainImages = [
+                  "assets/brain1.png",
+                  "assets/brain2.png",
+                  "assets/brain3.png",
+                  "assets/brain4.png"
+              ];
+              const brainImg = document.getElementById('brain-graphic');
+              let currentIndex = 0;
+              function rotateBrain() {
+                  // Fade out
+                  brainImg.style.opacity = 0;
+                  setTimeout(() => {
+                      currentIndex = (currentIndex + 1) % brainImages.length;
+                      brainImg.src = brainImages[currentIndex];
+                      brainImg.style.opacity = 1;
+                  }, 300);
+              }
+              setInterval(rotateBrain, 2000);
+            </script>
+            <!-- Bio/description text -->
+            <section>
                 <h2>About Me</h2>
-                <!-- Main bio text -->
                 <p>
                     I am currently a first-year PhD student at Stanford University in the Neurosciences Departmental Program.
                     Previously, I conducted undergraduate and post-baccalaureate research at the University of Minnesota,
