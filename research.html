@@ -2,9 +2,503 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gracie Grimsrud - CV</title>
+    <title>Gracie Grimsrud - Projects</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* ─── Page-level overrides & new components ─── */
+        :root {
+            --stanford-red: #8C1515;
+            --stanford-red-light: #B83A3A;
+            --ink: #1a1a2e;
+            --warm-white: #faf8f5;
+            --muted: #6b6b7b;
+            --card-bg: #ffffff;
+            --border: #e8e2d9;
+            --accent-gold: #c8922a;
+            --tag-bg: #f0ebe3;
+        }
+
+        body {
+            background: var(--warm-white);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--ink);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+        }
+
+        /* ─── Section headers ─── */
+        .section-label {
+            font-family: 'Lora', serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--stanford-red);
+            margin-bottom: 0.4rem;
+        }
+
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 1.85rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 0 0 0.6rem;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            color: var(--muted);
+            font-size: 0.92rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1.5px solid var(--border);
+            margin: 3rem 0;
+        }
+
+        /* ─── Quick-link banner ─── */
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1.5px solid transparent;
+        }
+
+        .quick-link.primary {
+            background: var(--stanford-red);
+            color: #fff;
+            border-color: var(--stanford-red);
+        }
+        .quick-link.primary:hover {
+            background: var(--stanford-red-light);
+            border-color: var(--stanford-red-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(140,21,21,0.2);
+        }
+
+        .quick-link.secondary {
+            background: transparent;
+            color: var(--stanford-red);
+            border-color: var(--stanford-red);
+        }
+        .quick-link.secondary:hover {
+            background: #8C151510;
+            transform: translateY(-1px);
+        }
+
+        .quick-link.github {
+            background: var(--ink);
+            color: #fff;
+            border-color: var(--ink);
+        }
+        .quick-link.github:hover {
+            background: #2d2d4a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(26,26,46,0.2);
+        }
+
+        /* ─── Press card ─── */
+        .press-card {
+            display: flex;
+            gap: 1.4rem;
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 1.4rem 1.6rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.22s ease;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .press-card:hover {
+            border-color: var(--stanford-red);
+            box-shadow: 0 6px 24px rgba(140,21,21,0.09);
+            transform: translateY(-2px);
+        }
+
+        .press-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: #f5ece8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--stanford-red);
+            font-size: 1.1rem;
+        }
+
+        .press-body .press-outlet {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .press-body .press-title {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.4;
+            margin-bottom: 0.3rem;
+        }
+
+        .press-body .press-desc {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ─── Research project cards ─── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        @media (max-width: 640px) {
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 1.4rem;
+            transition: all 0.22s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--stanford-red);
+            transform: scaleX(0);
+            transition: transform 0.25s ease;
+            transform-origin: left;
+        }
+
+        .project-card:hover {
+            border-color: #d4c9c0;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+            transform: translateY(-2px);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card .proj-status {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+        }
+
+        .proj-status.ongoing {
+            background: #eaf4ea;
+            color: #2d7a2d;
+        }
+
+        .proj-status.completed {
+            background: #eaeaf8;
+            color: #4040a0;
+        }
+
+        .project-card h3 {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 0 0 0.5rem;
+            line-height: 1.4;
+        }
+
+        .project-card p {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin: 0 0 0.9rem;
+        }
+
+        .proj-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .proj-tag {
+            background: var(--tag-bg);
+            color: #5a4a3a;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+        }
+
+        /* ─── Interesting papers ─── */
+        .papers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .paper-card {
+            display: flex;
+            gap: 1.2rem;
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 1.4rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            align-items: flex-start;
+        }
+
+        .paper-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 4px 18px rgba(200,146,42,0.1);
+            transform: translateY(-1px);
+        }
+
+        .paper-num {
+            flex-shrink: 0;
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--border);
+            line-height: 1;
+            min-width: 2rem;
+            margin-top: 2px;
+        }
+
+        .paper-info .paper-title {
+            font-family: 'Lora', serif;
+            font-size: 0.97rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+        }
+
+        .paper-info .paper-authors {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-style: italic;
+            margin-bottom: 0.3rem;
+        }
+
+        .paper-info .paper-why {
+            font-size: 0.82rem;
+            color: #5a4a3a;
+            line-height: 1.6;
+            background: #fdf6ec;
+            border-left: 2.5px solid var(--accent-gold);
+            padding: 0.35rem 0.7rem;
+            border-radius: 0 6px 6px 0;
+            margin-top: 0.5rem;
+        }
+
+        .paper-info .paper-why::before {
+            content: "Why I love it: ";
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        /* ─── GitHub repos ─── */
+        .repos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .repos-grid { grid-template-columns: 1fr; }
+        }
+
+        .repo-card {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 1.3rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .repo-card:hover {
+            border-color: var(--ink);
+            box-shadow: 0 4px 18px rgba(26,26,46,0.1);
+            transform: translateY(-2px);
+        }
+
+        .repo-card .repo-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .repo-card .repo-name i {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .repo-card .repo-desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .repo-lang {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.74rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .lang-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .lang-dot.python { background: #3572A5; }
+        .lang-dot.matlab { background: #e16737; }
+        .lang-dot.r { background: #276DC3; }
+        .lang-dot.shell { background: #89e051; }
+
+        /* ─── Blog teaser ─── */
+        .blog-teaser {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1515 100%);
+            border-radius: 16px;
+            padding: 2.2rem 2rem;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-teaser::after {
+            content: '✍';
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4.5rem;
+            opacity: 0.08;
+        }
+
+        .blog-teaser .blog-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #c8922a;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-teaser h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 0 0.7rem;
+        }
+
+        .blog-teaser p {
+            font-size: 0.88rem;
+            opacity: 0.75;
+            line-height: 1.7;
+            max-width: 520px;
+            margin-bottom: 1.4rem;
+        }
+
+        .blog-ideas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-idea-tag {
+            background: rgba(255,255,255,0.1);
+            color: #f0e8d8;
+            font-size: 0.77rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .blog-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: var(--accent-gold);
+            color: #1a1a2e;
+            font-size: 0.84rem;
+            font-weight: 700;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .blog-cta:hover {
+            background: #daa035;
+            transform: translateY(-1px);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 520px) {
+            .quick-links { flex-direction: column; }
+            .press-card { flex-direction: column; gap: 0.9rem; }
+            .blog-teaser::after { display: none; }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -12,27 +506,151 @@
             <div class="navbar-logo">Gracie Grimsrud</div>
             <nav>
                 <a href="index.html">About</a>
-                <!-- <a href="publications.html">Publications</a> -->
-                <a href="cv.html" >CV</a>
+                <a href="cv.html">CV</a>
                 <a href="research.html" class="active">Projects</a>
             </nav>
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/gracie-grimsrud-761087206/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:grimsrud@stanford.edu" title="Email"><i class="fa fa-envelope"></i></a>
+                <a href="/cdn-cgi/l/email-protection#9ff8edf6f2ecedeafbdfecebfef1f9f0edfbb1fafbea" title="Email"><i class="fa fa-envelope"></i></a>
             </div>
         </div>
     </header>
 
     <main>
-        <div class="about-card">
-            <section>
-                <h2>Research Projects</h2>
-                <p>
-                        Coming soon!
-                    </a>
-                </p>
-            </section>
+
+        <!-- ── HEADER + QUICK LINKS ── -->
+        <div style="margin-bottom: 2.4rem;">
+            <div class="section-label">Research</div>
+            <h1 class="section-title">Projects & Publications</h1>
+            <p class="section-desc">
+                Exploring the developing brain through the lens of neuroimaging — from functional network organization 
+                to clinically translatable tools for neuropsychiatric disorders.
+            </p>
+            <div class="quick-links">
+                <a href="https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID" target="_blank" rel="noopener" class="quick-link primary">
+                    <i class="fas fa-graduation-cap"></i> Google Scholar
+                </a>
+                <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener" class="quick-link github">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="assets/Grimsrud_CV_JAN2026.pdf" target="_blank" rel="noopener" class="quick-link secondary">
+                    <i class="fas fa-file-pdf"></i> CV
+                </a>
+            </div>
         </div>
+
+        <hr class="divider">
+
+        <!-- ── PRESS ── -->
+        <div class="section-label">In the News</div>
+        <h2 class="section-title" style="font-size:1.35rem; margin-bottom:1rem;">Press Coverage</h2>
+
+        <a href="https://www.brainfacts.org/brain-anatomy-and-function/anatomy/2025/brain-maps-explain-mixed-responses-to-adhd-meds-121725" target="_blank" rel="noopener" class="press-card">
+            <div class="press-icon"><i class="fas fa-newspaper"></i></div>
+            <div class="press-body">
+                <div class="press-outlet">BrainFacts.org · December 2025</div>
+                <div class="press-title">Brain Maps Explain Mixed Responses to ADHD Meds</div>
+                <div class="press-desc">
+                    Coverage of my research on how individual differences in the somato-cognitive action network (SCAN) 
+                    may underlie why children with ADHD respond so differently to methylphenidate — and what precision 
+                    functional brain mapping could mean for tailoring treatment.
+                </div>
+            </div>
+        </a>
+
+        <hr class="divider">
+
+        <!-- ── RESEARCH PROJECTS ── -->
+        <div class="section-label">Current & Past Work</div>
+        <h2 class="section-title" style="font-size:1.35rem; margin-bottom:0.5rem;">Research Projects</h2>
+        <p class="section-desc">Fill in with your own project descriptions — a few sentences each is plenty.</p>
+
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <span class="proj-status ongoing">Ongoing · Stanford</span>
+                <h3>Infant Brain Waves</h3>
+                <p>Under the mentorship of Dr. Anish Mitra and Dr. Adam Pines, we are applying a novel seq-NMF framework to identify indivividual specific waves of brain actiivty. In a cohort of 6 month, 12 month, and 24 month olds, we are inspecting how the activity and shape of these waves changes acrss development</p>
+                <div class="proj-tags">
+                    <span class="proj-tag">fMRI</span>
+                    <span class="proj-tag">Resting-State Dynamics</span>
+                    <span class="proj-tag">Neurodevelopment</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="proj-status ongoing">Ongoing · UMN MIDB</span>
+                <h3>SCAN & Methylphenidate</h3>
+                <p>Despite a well-established molecular underpinning, a lot about how methylphenidate, the most commonly prescribed stimulant medication for ADHD, impacts the brain at a macro-scale is unknown. Our results suggest that the somato-cognitive action network plays a key role in how methylphenidate exerts positive effects on brain function. Worked conducted under the mentorship of Dr. Damien Fair.</p>
+                <div class="proj-tags">
+                    <span class="proj-tag">Neuropsychiatry</span>
+                    <span class="proj-tag">Connectomics</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="proj-status ongoing">Ongoing · UMN MIDB</span>
+                <h3>PFM: Movie-Watching vs Standard Resting State</h3>
+                <p>Precision Functional Mapping is a powerful tool to map individual differences in functional brain organization. But are these networks stable regardless of what you are watching when your resting-state data is collected? The answer to this question will come from ongoing work continued by Dr. Kate Godfrey at UMN. Work conducted under mentorship of Dr. Steve Nelson at the Masonic Institute for the Developing Brain. </p>
+                <div class="proj-tags">
+                    <span class="proj-tag">Functional Networks</span>
+                    <span class="proj-tag">ABCD Study</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- ── PAPERS I FIND INTERESTING ── -->
+        <div class="section-label">Reading List</div>
+        <h2 class="section-title" style="font-size:1.35rem; margin-bottom:0.5rem;">Papers I Find Interesting</h2>
+        <p class="section-desc">A curated, personal selection — not a comprehensive review, just things that made me think differently.</p>
+
+        <div class="papers-list">
+
+            <a href="https://www.nature.com/articles/s41586-025-10059-1" target="_blank" rel="noopener" class="paper-card">
+                <div class="paper-num">01</div>
+                <div class="paper-info">
+                    <div class="paper-title">Parkinson's Disease as a Somato-Cognitive Action Network Disorder</div>
+                    <div class="paper-authors">Ren, Zhang, Dahmani, Gordon et al. · Nature · 2026</div>
+                    <div class="paper-why">A landmark demonstration that precision functional mapping has real clinical teeth — targeting the SCAN specifically more than doubled treatment response in PD patients across DBS, TMS, and pharmacology. This is what translational neuroimaging should look like.</div>
+                </div>
+            </a>
+
+            <a href="https://pubmed.ncbi.nlm.nih.gov/10583955/" target="_blank" rel="noopener" class="paper-card">
+                <div class="paper-num">02</div>
+                <div class="paper-info">
+                    <div class="paper-title">Linking Spontaneous Activity of Single Cortical Neurons and the Underlying Functional Architecture</div>
+                    <div class="paper-authors">Tsodyks, Kenet, Grinvald & Arieli · Science · 1999</div>
+                    <div class="paper-why">A foundational piece for anyone who wants to link BOLD signal back to neural activity — showing that the firing rate of individual neurons is tightly coupled to large-scale population activity patterns. The bridge between the cellular and systems levels.</div>
+                </div>
+            </a>
+
+        </div>
+
+        <hr class="divider">
+
+        <!-- ── BLOG TEASER ── -->
+        <div class="blog-teaser">
+            <div class="blog-eyebrow">Coming Soon</div>
+            <h3>A Blog — Eventually</h3>
+            <p>
+                I'm thinking about starting a space to write about ideas that don't fit neatly into papers: 
+                what it's like to begin a PhD, how we talk about neuroscience to non-scientists, 
+                and the occasional musing on a paper that changed how I see something.
+            </p>
+            <div class="blog-ideas">
+                <span class="blog-idea-tag">🧠 Making fMRI legible to non-scientists</span>
+                <span class="blog-idea-tag">📚 Paper breakdowns for curious outsiders</span>
+                <span class="blog-idea-tag">🎓 First-year PhD reflections</span>
+                <span class="blog-idea-tag">🧒 Science outreach & youth engagement</span>
+                <span class="blog-idea-tag">💡 What we get wrong about mental health research</span>
+            </div>
+            <a href="/cdn-cgi/l/email-protection#305742595d43424554704344515e565f42541e5554450f4345525a5553440d725c5f5715020059545551" class="blog-cta">
+                <i class="fas fa-paper-plane"></i> Send me a topic idea
+            </a>
+        </div>
+
     </main>
-</body>
-</html>
+
+    <ul class="background-circles">
