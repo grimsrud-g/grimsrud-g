@@ -4,11 +4,170 @@
     <meta charset="UTF-8">
     <title>Gracie Grimsrud - About</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Modern Google Font for headings and body text -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for social/link icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --stanford-red: #8C1515;
+            --ink: #1a1a2e;
+            --warm-white: #faf8f5;
+            --muted: #6b6b7b;
+            --card-bg: #ffffff;
+            --border: #e8e2d9;
+            --accent-gold: #c8922a;
+        }
+
+        body {
+            background: var(--warm-white) !important;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--ink);
+        }
+
+        main {
+            display: block !important;
+            min-height: unset !important;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        /* ─── Reset about-card from style.css ─── */
+        .about-card {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            background: var(--card-bg) !important;
+            border: 1.5px solid var(--border) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important;
+            padding: 2.5rem 2rem !important;
+            gap: 2.5rem !important;
+            max-width: 100% !important;
+        }
+
+        /* ─── Left column: photo + brain ─── */
+        .left-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 200px;
+            margin-right: 0;
+        }
+
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border) !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+            margin-bottom: 1.2rem;
+        }
+
+        .brain-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .brain-graphic {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #f5f0eb;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            transition: opacity 0.6s;
+        }
+
+        .brain-caption {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--stanford-red);
+            background: #f5e8e8;
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            margin-top: 0.6rem;
+            text-align: center;
+        }
+
+        /* ─── Right column: text ─── */
+        .about-card section {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .about-eyebrow {
+            font-family: 'Lora', serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--stanford-red);
+            margin-bottom: 0.4rem;
+        }
+
+        h2 {
+            font-family: 'Lora', serif;
+            font-size: 1.85rem;
+            font-weight: 600;
+            color: var(--ink) !important;
+            margin: 0 0 1.2rem;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 0.92rem;
+            line-height: 1.75;
+            color: var(--muted) !important;
+            margin-bottom: 1rem;
+        }
+
+        p a {
+            color: var(--stanford-red);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        p a:hover {
+            border-bottom-color: var(--stanford-red);
+        }
+
+        /* ─── Interest tags ─── */
+        .interest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.4rem;
+        }
+
+        .interest-tag {
+            background: #f0ebe3;
+            color: #5a4a3a;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            border: 1px solid #e0d8ce;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 680px) {
+            .about-card {
+                flex-direction: column !important;
+                align-items: center !important;
+                padding: 1.8rem 1.2rem !important;
+            }
+            .left-block {
+                width: auto;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -16,48 +175,32 @@
             <div class="navbar-logo">Gracie Grimsrud</div>
             <nav>
                 <a href="index.html" class="active">About</a>
-                <!-- <a href="publications.html">Publications</a> --> 
+                <!-- <a href="publications.html">Publications</a> -->
                 <a href="cv.html">CV</a>
                 <a href="research.html">Projects</a>
             </nav>
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/gracie-grimsrud-761087206/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                 <a href="mailto:grimsrud@stanford.edu" title="Email"><i class="fa fa-envelope"></i></a>
             </div>
         </div>
     </header>
+
     <main>
         <div class="about-card">
+
             <div class="left-block">
                 <img src="assets/profile_pic.jpg" alt="Gracie Grimsrud" class="profile-pic">
                 <div class="brain-block">
-                <img id="brain-graphic" src="assets/brain1.png" alt="Brain graphic" class="brain-graphic">
-                <div class="brain-caption">my functional networks!</div>
+                    <img id="brain-graphic" src="assets/brain1.png" alt="Brain graphic" class="brain-graphic">
+                    <div class="brain-caption">my functional networks!</div>
+                </div>
             </div>
-         </div>
-
-
-            <script>
-              const brainImages = [
-                  "assets/brain1.png",
-                  "assets/brain2.png",
-                  "assets/brain3.png",
-                  "assets/brain4.png"
-              ];
-              const brainImg = document.getElementById('brain-graphic');
-              let currentIndex = 0;
-              function rotateBrain() {
-                  brainImg.style.opacity = 0;
-                  setTimeout(() => {
-                      currentIndex = (currentIndex + 1) % brainImages.length;
-                      brainImg.src = brainImages[currentIndex];
-                      brainImg.style.opacity = 1;
-                  }, 300);
-              }
-              setInterval(rotateBrain, 2000);
-            </script>
 
             <section>
+                <div class="about-eyebrow">PhD Student · Stanford Neurosciences</div>
                 <h2>About Me</h2>
                 <p>
                     I am currently a first-year PhD student at Stanford University in the Neurosciences Departmental Program.
@@ -78,10 +221,40 @@
                     health and wellness. I intend to expand upon my experience in youth outreach gained through Mayo Clinic's InSciEd Out
                     Program during my time at Stanford University & beyond.
                 </p>
+
+                <div class="interest-tags">
+                    <span class="interest-tag">🧠 Precision Functional Mapping</span>
+                    <span class="interest-tag">📡 fMRI Methods</span>
+                    <span class="interest-tag">🧒 Neurodevelopment</span>
+                    <span class="interest-tag">💊 Neuropsychiatry</span>
+                    <span class="interest-tag">🔬 Translational Neuroimaging</span>
+                    <span class="interest-tag">📣 Science Outreach</span>
+                </div>
             </section>
+
         </div>
     </main>
-    <!-- Animated floating circles as a subtle background effect -->
+
+    <script>
+        const brainImages = [
+            "assets/brain1.png",
+            "assets/brain2.png",
+            "assets/brain3.png",
+            "assets/brain4.png"
+        ];
+        const brainImg = document.getElementById('brain-graphic');
+        let currentIndex = 0;
+        function rotateBrain() {
+            brainImg.style.opacity = 0;
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % brainImages.length;
+                brainImg.src = brainImages[currentIndex];
+                brainImg.style.opacity = 1;
+            }, 300);
+        }
+        setInterval(rotateBrain, 2000);
+    </script>
+
     <ul class="background-circles">
         <li></li><li></li><li></li><li></li>
         <li></li><li></li><li></li><li></li>
