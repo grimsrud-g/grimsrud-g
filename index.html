@@ -32,7 +32,6 @@
             padding: 3rem 1.5rem 4rem;
         }
 
-        /* ─── Reset about-card from style.css ─── */
         .about-card {
             display: flex !important;
             flex-direction: row !important;
@@ -46,7 +45,6 @@
             max-width: 100% !important;
         }
 
-        /* ─── Left column: photo + brain ─── */
         .left-block {
             display: flex;
             flex-direction: column;
@@ -94,7 +92,6 @@
             text-align: center;
         }
 
-        /* ─── Right column: text ─── */
         .about-card section {
             flex: 1;
             min-width: 0;
@@ -138,7 +135,6 @@
             border-bottom-color: var(--stanford-red);
         }
 
-        /* ─── Interest tags ─── */
         .interest-tags {
             display: flex;
             flex-wrap: wrap;
@@ -156,16 +152,13 @@
             border: 1px solid #e0d8ce;
         }
 
-        /* ─── Responsive ─── */
         @media (max-width: 680px) {
             .about-card {
                 flex-direction: column !important;
                 align-items: center !important;
                 padding: 1.8rem 1.2rem !important;
             }
-            .left-block {
-                width: auto;
-            }
+            .left-block { width: auto; }
         }
     </style>
 </head>
@@ -176,6 +169,7 @@
             <nav>
                 <a href="index.html" class="active">About</a>
                 <a href="research.html">Projects</a>
+                <a href="pydrill.html">Code Practice</a>
             </nav>
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/gracie-grimsrud-761087206/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
