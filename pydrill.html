@@ -213,6 +213,30 @@
             font-weight: 500;
         }
 
+        .usecase-strip {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 0.6rem 1.4rem;
+            background: #fdf6ec;
+            border-bottom: 1.5px solid var(--border);
+            font-size: 0.8rem;
+            color: #7a5010;
+            line-height: 1.5;
+        }
+
+        .usecase-strip i {
+            color: var(--accent-gold);
+            font-size: 0.75rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .usecase-strip strong {
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
         .q-body { padding: 1rem 1.4rem 1.25rem; }
 
         .sublabel {
@@ -500,7 +524,7 @@
                 <a href="https://www.linkedin.com/in/gracie-grimsrud-761087206/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://scholar.google.com/citations?hl=en&user=W1TP3EwAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
                 <a href="https://github.com/grimsrud-g" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="mailto:grimsrud@stanford.edu" title="Email"><i class="fa fa-envelope"></i></a>
+                <a href="/cdn-cgi/l/email-protection#4720352e2a3435322307343326292128352369222332" title="Email"><i class="fa fa-envelope"></i></a>
             </div>
         </div>
     </header>
@@ -512,7 +536,7 @@
             <div class="section-label">Code Practice</div>
             <h1 class="section-title">PyDrill</h1>
             <p class="section-desc">
-                A gamified Python drill for staying sharp — covering core Python, NumPy, pandas, nibabel, and data manipulation.
+                A gamified Python drill covering core Python, NumPy, pandas, nibabel, and data manipulation.
                 Study the options, then <em>type</em> the answer to advance. Press Enter to submit or move on.
             </p>
         </div>
@@ -567,6 +591,10 @@
                 <div class="q-card-top">
                     <span class="cat-badge" id="q-cat-badge"></span>
                     <p class="q-prompt" id="q-prompt"></p>
+                </div>
+                <div class="usecase-strip" id="q-usecase">
+                    <i class="fas fa-lightbulb"></i>
+                    <span><strong>Use when:</strong> <span id="q-usecase-text"></span></span>
                 </div>
                 <div class="q-body">
                     <div class="sublabel">context</div>
@@ -623,11 +651,12 @@
         <li></li><li></li><li></li><li></li>
     </ul>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const QUESTIONS = [
   // ── BASICS ──────────────────────────────────────────────────────────────
   { cat:'basics', label:'basics',
     prompt:'Define a function called `greet` that takes a parameter `name` and returns the string "Hello, " followed by name.',
+    usecase:'you want to encapsulate reusable logic and get a value back from it — e.g. a preprocessing step that returns a cleaned array.',
     hint:'def greet(name):\n    return ...',
     answer:'return "Hello, " + name',
     options:['return "Hello, " + name','print("Hello, " + name)','return f"Hello {name}"','yield "Hello, " + name'],
@@ -635,6 +664,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Create a list called `nums` containing integers 1–5 using a list comprehension.',
+    usecase:'you need to build a list by applying a rule or transformation to a range — more concise than a for loop with .append().',
     hint:'nums = [... for i in range(...)]',
     answer:'nums = [i for i in range(1, 6)]',
     options:['nums = [i for i in range(1, 6)]','nums = list(range(5))','nums = [i for i in range(5)]','nums = [1,2,3,4,5,6]'],
@@ -642,6 +672,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Filter even numbers from a list `data` into a new list `evens` using a list comprehension.',
+    usecase:'you need a subset of a list based on a condition — e.g. keeping only valid TR values or non-zero voxel indices.',
     hint:'evens = [x for x in data if ...]',
     answer:'evens = [x for x in data if x % 2 == 0]',
     options:['evens = [x for x in data if x % 2 == 0]','evens = filter(data, lambda x: x%2)','evens = [x for x in data if x % 2]','evens = data[data % 2 == 0]'],
@@ -649,6 +680,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Open "data.txt" for reading using a context manager and store the file object as `f`.',
+    usecase:'you need to safely read a file without risking it being left open if an error occurs mid-read.',
     hint:'with open(...) as f:',
     answer:'with open("data.txt", "r") as f:',
     options:['with open("data.txt", "r") as f:','f = open("data.txt")','with open("data.txt") as file:','f = read("data.txt")'],
@@ -656,6 +688,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Create a dict mapping each word in list `words` to its length using a dict comprehension.',
+    usecase:'you want to build a lookup table in one line — e.g. mapping subject IDs to file paths or ROI labels to indices.',
     hint:'lengths = {w: ... for w in words}',
     answer:'lengths = {w: len(w) for w in words}',
     options:['lengths = {w: len(w) for w in words}','lengths = dict([(w, len(w)) for w in words])','lengths = {words: len(words)}','lengths = map(len, words)'],
@@ -663,6 +696,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Unpack the tuple `point = (3, 7)` into variables `x` and `y` in a single line.',
+    usecase:'a function returns multiple values (as a tuple) and you want to assign each to a named variable immediately.',
     hint:'x, y = ...',
     answer:'x, y = point',
     options:['x, y = point','x = point[0]; y = point[1]','(x, y) = point[0], point[1]','x, y = point[0]'],
@@ -670,6 +704,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Use a lambda to create an anonymous function that squares its input, assigned to `sq`.',
+    usecase:'you need a short throwaway function — e.g. as a sort key, a map argument, or a quick transformation inline.',
     hint:'sq = lambda x: ...',
     answer:'sq = lambda x: x ** 2',
     options:['sq = lambda x: x ** 2','sq = lambda x: x * x','sq = def(x): x**2','sq = function(x) { return x**2; }'],
@@ -677,6 +712,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Use `*args` in a function signature to accept any number of positional arguments.',
+    usecase:'you\'re writing a utility function that should work on one subject or many — without hardcoding the number of inputs.',
     hint:'def my_func(*args):\n    ...',
     answer:'def my_func(*args):',
     options:['def my_func(*args):','def my_func(args):','def my_func(**args):','def my_func(args=[]):'],
@@ -684,6 +720,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Check if a key "name" exists in dictionary `d`.',
+    usecase:'you\'re reading a config dict or JSON file and a field may or may not be present — safer than directly accessing it.',
     hint:'if ... in d:',
     answer:'if "name" in d:',
     options:['if "name" in d:','if d.has_key("name"):','if d["name"] exists:','if d.contains("name"):'],
@@ -691,6 +728,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Join a list of strings `words` into a single space-separated string.',
+    usecase:'you\'ve built a list of path components or label strings and need to combine them into one string for output or display.',
     hint:'sentence = " ".join(...)',
     answer:'sentence = " ".join(words)',
     options:['sentence = " ".join(words)','sentence = words.join(" ")','sentence = str(words)','sentence = concat(words, " ")'],
@@ -698,6 +736,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Get the last 3 elements of list `items` using slicing.',
+    usecase:'you want the most recent timepoints, the final volumes of an fMRI run, or the last few rows of a results list.',
     hint:'last3 = items[...]',
     answer:'last3 = items[-3:]',
     options:['last3 = items[-3:]','last3 = items[len(items)-3:]','last3 = items[:3]','last3 = items[-3:-1]'],
@@ -705,6 +744,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Raise a ValueError with message "Invalid input" inside a function.',
+    usecase:'you\'re validating function inputs — e.g. checking that a scan dimension or TR value is within an expected range.',
     hint:'raise ...',
     answer:'raise ValueError("Invalid input")',
     options:['raise ValueError("Invalid input")','throw ValueError("Invalid input")','raise Error("Invalid input")','raise "Invalid input"'],
@@ -712,6 +752,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Use `isinstance()` to check if variable `x` is an integer.',
+    usecase:'you\'re writing a function that should behave differently depending on input type — e.g. accepting a single index or a list of indices.',
     hint:'if isinstance(x, ...):',
     answer:'if isinstance(x, int):',
     options:['if isinstance(x, int):','if type(x) == int:','if x.type() == "int":','if x is int:'],
@@ -719,6 +760,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Use `map()` to apply function `double` to every element of list `nums`, returning a list.',
+    usecase:'you need to apply the same transformation to every element — e.g. converting a list of file sizes or scaling a set of values.',
     hint:'result = list(map(...))',
     answer:'result = list(map(double, nums))',
     options:['result = list(map(double, nums))','result = map(double, nums)','result = list(map(lambda x: double(x), nums))','result = [map(double, x) for x in nums]'],
@@ -726,6 +768,7 @@ const QUESTIONS = [
 
   { cat:'basics', label:'basics',
     prompt:'Swap the values of variables `a` and `b` in a single line without a temp variable.',
+    usecase:'you need to exchange two values in-place — e.g. swapping axis indices or reordering a pair of variables.',
     hint:'a, b = ...',
     answer:'a, b = b, a',
     options:['a, b = b, a','temp = a; a = b; b = temp','a = b; b = a','(a, b) = (b, a)'],
@@ -734,6 +777,7 @@ const QUESTIONS = [
   // ── NUMPY ──────────────────────────────────────────────────────────────
   { cat:'numpy', label:'numpy',
     prompt:'Create a 3×3 array of zeros (assuming numpy imported as np).',
+    usecase:'you need to initialize an output array before filling it — e.g. preallocating a results matrix before a loop.',
     hint:'z = np.zeros(...)',
     answer:'z = np.zeros((3, 3))',
     options:['z = np.zeros((3, 3))','z = np.zeros([3, 3])','z = np.array([[0]*3]*3)','z = np.empty((3, 3))'],
@@ -741,6 +785,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Compute the mean of each column in a 2D array `arr`.',
+    usecase:'you have a subjects × features matrix and want per-feature averages — e.g. mean activation per ROI across participants.',
     hint:'col_means = np.mean(arr, axis=...)',
     answer:'col_means = np.mean(arr, axis=0)',
     options:['col_means = np.mean(arr, axis=0)','col_means = np.mean(arr, axis=1)','col_means = arr.mean()','col_means = np.average(arr, axis=0)'],
@@ -748,6 +793,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Reshape a 1D array `v` with 12 elements into a 3×4 matrix.',
+    usecase:'you\'ve loaded flattened fMRI data or a vectorized connectivity matrix and need to restore its 2D shape for analysis.',
     hint:'m = v.reshape(...)',
     answer:'m = v.reshape(3, 4)',
     options:['m = v.reshape(3, 4)','m = np.reshape(v, (3, 4))','m = v.resize(3, 4)','m = v.reshape((4, 3))'],
@@ -755,6 +801,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Extract all elements from array `a` that are greater than 5 using boolean indexing.',
+    usecase:'you want to threshold an activation map, mask out low-signal voxels, or filter outlier motion values.',
     hint:'result = a[a > ...]',
     answer:'result = a[a > 5]',
     options:['result = a[a > 5]','result = a.where(a > 5)','result = np.filter(a, a > 5)','result = [x for x in a if x > 5]'],
@@ -762,6 +809,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Stack two 1D arrays `a` and `b` vertically into a 2D array.',
+    usecase:'you want to combine two subjects\' data vectors into a single matrix, or stack two condition arrays for joint analysis.',
     hint:'stacked = np.vstack(...)',
     answer:'stacked = np.vstack([a, b])',
     options:['stacked = np.vstack([a, b])','stacked = np.hstack([a, b])','stacked = np.stack([a, b], axis=0)','stacked = np.concatenate([a, b])'],
@@ -769,6 +817,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Create 50 evenly spaced values between 0 and 1 inclusive.',
+    usecase:'you need a smooth axis for plotting, interpolation, or generating a signal over a normalized time range.',
     hint:'arr = np.linspace(...)',
     answer:'arr = np.linspace(0, 1, 50)',
     options:['arr = np.linspace(0, 1, 50)','arr = np.arange(0, 1, 50)','arr = np.linspace(0, 1, num=49)','arr = np.range(0, 1, 50)'],
@@ -776,6 +825,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Compute the dot product of two 1D arrays `u` and `v`.',
+    usecase:'you\'re computing a weighted sum, projecting one signal onto another, or doing a manual matrix-vector multiplication step.',
     hint:'result = np.dot(...)',
     answer:'result = np.dot(u, v)',
     options:['result = np.dot(u, v)','result = u * v','result = u @ v','result = np.multiply(u, v)'],
@@ -783,6 +833,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Get the shape of numpy array `arr` as a tuple.',
+    usecase:'you want to confirm data dimensions before an operation — essential sanity check when working with 3D/4D neuroimaging arrays.',
     hint:'shape = arr.shape',
     answer:'shape = arr.shape',
     options:['shape = arr.shape','shape = arr.size','shape = np.shape(arr)','shape = len(arr)'],
@@ -790,6 +841,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Compute the standard deviation of array `data` along axis 0.',
+    usecase:'you want variability per feature across subjects — e.g. how much each ROI\'s connectivity fluctuates across the cohort.',
     hint:'sd = np.std(data, axis=...)',
     answer:'sd = np.std(data, axis=0)',
     options:['sd = np.std(data, axis=0)','sd = np.std(data)','sd = data.std(axis=1)','sd = np.var(data, axis=0)'],
@@ -797,6 +849,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Create an identity matrix of size 4×4 using numpy.',
+    usecase:'you need a neutral starting point for linear algebra — e.g. as an initial affine transformation or regularization matrix.',
     hint:'I = np.eye(...)',
     answer:'I = np.eye(4)',
     options:['I = np.eye(4)','I = np.identity(4)','I = np.ones((4, 4))','I = np.diag(np.ones(4))'],
@@ -804,6 +857,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Find the index of the maximum value in 1D array `arr`.',
+    usecase:'you want to locate the peak activation timepoint, the best-performing subject, or the highest-scoring feature.',
     hint:'idx = np.argmax(...)',
     answer:'idx = np.argmax(arr)',
     options:['idx = np.argmax(arr)','idx = np.max(arr)','idx = arr.index(max(arr))','idx = np.where(arr == arr.max())'],
@@ -811,6 +865,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Normalize array `arr` to have zero mean and unit variance (z-score normalization).',
+    usecase:'you\'re preparing data for a model or comparison across subjects/sessions with different signal scales — standard in fMRI preprocessing.',
     hint:'norm = (arr - arr.mean()) / arr...',
     answer:'norm = (arr - arr.mean()) / arr.std()',
     options:['norm = (arr - arr.mean()) / arr.std()','norm = arr / arr.max()','norm = (arr - np.min(arr)) / (np.max(arr) - np.min(arr))','norm = arr.normalize()'],
@@ -818,6 +873,7 @@ const QUESTIONS = [
 
   { cat:'numpy', label:'numpy',
     prompt:'Concatenate two 2D arrays `a` and `b` along axis 1 (column-wise).',
+    usecase:'you\'re combining feature sets from two modalities side-by-side — e.g. appending behavioral scores to an fMRI connectivity matrix.',
     hint:'c = np.concatenate([a, b], axis=...)',
     answer:'c = np.concatenate([a, b], axis=1)',
     options:['c = np.concatenate([a, b], axis=1)','c = np.concatenate([a, b], axis=0)','c = np.hstack([a, b])','c = np.vstack([a, b])'],
@@ -826,6 +882,7 @@ const QUESTIONS = [
   // ── PANDAS ──────────────────────────────────────────────────────────────
   { cat:'pandas', label:'pandas',
     prompt:'Read "data.csv" into a pandas DataFrame called `df`.',
+    usecase:'you\'re starting any tabular data analysis — behavioral scores, demographic data, or exported ROI statistics.',
     hint:'import pandas as pd\ndf = pd.read_csv(...)',
     answer:'df = pd.read_csv("data.csv")',
     options:['df = pd.read_csv("data.csv")','df = pd.DataFrame("data.csv")','df = pd.load_csv("data.csv")','df = pandas.read("data.csv")'],
@@ -833,6 +890,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Select the "age" column from DataFrame `df` as a Series.',
+    usecase:'you want to work with a single variable — e.g. extracting motion parameters or age values for a regression.',
     hint:'ages = df[...]',
     answer:'ages = df["age"]',
     options:['ages = df["age"]','ages = df.age()','ages = df.get("age")','ages = df[["age"]]'],
@@ -840,6 +898,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Filter rows in `df` where the "score" column is greater than 90.',
+    usecase:'you\'re subsetting participants by a threshold — e.g. keeping only subjects with head motion below a cutoff.',
     hint:'high = df[df["score"] > ...]',
     answer:'high = df[df["score"] > 90]',
     options:['high = df[df["score"] > 90]','high = df.filter(score > 90)','high = df.query("score > 90")','high = df.where(df["score"] > 90)'],
@@ -847,6 +906,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Group `df` by "category" and compute the mean of "value" for each group.',
+    usecase:'you want per-group summary statistics — e.g. mean activation per diagnosis group or average score per age bin.',
     hint:'result = df.groupby(...)["value"].mean()',
     answer:'result = df.groupby("category")["value"].mean()',
     options:['result = df.groupby("category")["value"].mean()','result = df.group("category").mean("value")','result = df.groupby(["category","value"]).mean()','result = df["value"].groupby(df["category"]).mean()'],
@@ -854,6 +914,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Drop all rows with any missing values from `df`, storing the result back in `df`.',
+    usecase:'you\'re cleaning a dataset before analysis and can\'t use rows with incomplete data — e.g. missing behavioral scores.',
     hint:'df = df.dropna(...)',
     answer:'df = df.dropna()',
     options:['df = df.dropna()','df.dropna(inplace=True)','df = df.fillna(method="drop")','df = df[df.notnull()]'],
@@ -861,6 +922,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Sort `df` by "timestamp" in descending order into `df_sorted`.',
+    usecase:'you want the most recent entries first — e.g. ordering scan sessions or sorting results by effect size.',
     hint:'df_sorted = df.sort_values(...)',
     answer:'df_sorted = df.sort_values("timestamp", ascending=False)',
     options:['df_sorted = df.sort_values("timestamp", ascending=False)','df_sorted = df.sort_values("timestamp")','df_sorted = df.orderby("timestamp", desc=True)','df_sorted = df.sort("timestamp", ascending=False)'],
@@ -868,6 +930,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Add a new column "bmi" to `df` computed as weight divided by height squared.',
+    usecase:'you need a derived variable from existing columns — e.g. computing a composite score or normalizing a measure.',
     hint:'df["bmi"] = ...',
     answer:'df["bmi"] = df["weight"] / df["height"] ** 2',
     options:['df["bmi"] = df["weight"] / df["height"] ** 2','df.bmi = df.weight / df.height ** 2','df["bmi"] = df["weight"] / (df["height"] * df["height"])','df.insert("bmi", df["weight"] / df["height"]**2)'],
@@ -875,6 +938,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Get the number of non-null values in each column of `df`.',
+    usecase:'you\'re doing a quick data quality check — spotting which columns have missing data before deciding how to handle them.',
     hint:'df.count()',
     answer:'df.count()',
     options:['df.count()','df.notnull().sum()','len(df) - df.isnull().sum()','df.info()'],
@@ -882,6 +946,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Merge DataFrames `left` and `right` on column "id" using an inner join.',
+    usecase:'you\'re combining two tables that share a key — e.g. joining subject demographics with scan-level quality metrics.',
     hint:'merged = pd.merge(left, right, on=..., how=...)',
     answer:'merged = pd.merge(left, right, on="id", how="inner")',
     options:['merged = pd.merge(left, right, on="id", how="inner")','merged = left.join(right, on="id")','merged = pd.merge(left, right, on="id")','merged = left.merge(right, on="id", how="inner")'],
@@ -889,6 +954,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Reset the index of `df` and drop the old index.',
+    usecase:'after filtering or sorting, your index is non-sequential — reset it to clean 0,1,2,... before passing to another function.',
     hint:'df = df.reset_index(...)',
     answer:'df = df.reset_index(drop=True)',
     options:['df = df.reset_index(drop=True)','df = df.reset_index()','df.index = range(len(df))','df = df.reindex()'],
@@ -896,6 +962,7 @@ const QUESTIONS = [
 
   { cat:'pandas', label:'pandas',
     prompt:'Compute a pivot table of `df` with "region" as rows, "product" as columns, and mean "sales" as values.',
+    usecase:'you want a summary cross-tabulation — e.g. mean activation per ROI per condition, organized as a readable matrix.',
     hint:'pt = df.pivot_table(values=..., index=..., columns=..., aggfunc=...)',
     answer:'pt = df.pivot_table(values="sales", index="region", columns="product", aggfunc="mean")',
     options:['pt = df.pivot_table(values="sales", index="region", columns="product", aggfunc="mean")','pt = df.pivot("region", "product", "sales")','pt = df.groupby(["region","product"])["sales"].mean().unstack()','pt = pd.crosstab(df["region"], df["product"], values=df["sales"], aggfunc="mean")'],
@@ -904,6 +971,7 @@ const QUESTIONS = [
   // ── NIBABEL ──────────────────────────────────────────────────────────────
   { cat:'nibabel', label:'nibabel',
     prompt:'Load a NIfTI file "brain.nii.gz" using nibabel (imported as nib).',
+    usecase:'you\'re starting any neuroimaging analysis — the first step whenever you need to work with an MRI volume in Python.',
     hint:'img = nib.load(...)',
     answer:'img = nib.load("brain.nii.gz")',
     options:['img = nib.load("brain.nii.gz")','img = nib.read("brain.nii.gz")','img = nib.Nifti1Image("brain.nii.gz")','img = nib.open("brain.nii.gz")'],
@@ -911,6 +979,7 @@ const QUESTIONS = [
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Extract the raw numpy data array from nibabel image `img`.',
+    usecase:'you need to actually operate on the voxel values — mask, threshold, smooth, or pass to a model.',
     hint:'data = img.get_fdata()',
     answer:'data = img.get_fdata()',
     options:['data = img.get_fdata()','data = img.get_data()','data = img.data','data = np.array(img)'],
@@ -918,6 +987,7 @@ const QUESTIONS = [
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Get the voxel-to-world affine transformation matrix from nibabel image `img`.',
+    usecase:'you need to know how voxel coordinates map to real-world mm space — essential before resampling, registration, or overlaying atlases.',
     hint:'affine = img.affine',
     answer:'affine = img.affine',
     options:['affine = img.affine','affine = img.get_affine()','affine = img.header["affine"]','affine = img.transform'],
@@ -925,6 +995,7 @@ const QUESTIONS = [
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Save nibabel image `new_img` to file "output.nii.gz".',
+    usecase:'you\'ve processed or created a brain volume in Python and need to write it back to disk — e.g. a mask, residuals, or a derived map.',
     hint:'nib.save(...)',
     answer:'nib.save(new_img, "output.nii.gz")',
     options:['nib.save(new_img, "output.nii.gz")','new_img.save("output.nii.gz")','nib.write(new_img, "output.nii.gz")','nib.to_file(new_img, "output.nii.gz")'],
@@ -932,6 +1003,7 @@ const QUESTIONS = [
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Create a new Nifti1Image from numpy array `data` and affine `affine`.',
+    usecase:'you\'ve computed a new volume (e.g. a stat map or parcellation) and need to wrap it back into a NIfTI object to save or pass to nilearn.',
     hint:'new_img = nib.Nifti1Image(...)',
     answer:'new_img = nib.Nifti1Image(data, affine)',
     options:['new_img = nib.Nifti1Image(data, affine)','new_img = nib.create(data, affine)','new_img = nib.NiftiImage(data, affine=affine)','new_img = nib.Nifti1Image(affine, data)'],
@@ -939,6 +1011,7 @@ const QUESTIONS = [
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Get the voxel dimensions (mm spacing) from nibabel image `img`.',
+    usecase:'you need to know the resolution of a scan before spatial operations — e.g. checking that two images are at the same voxel size before concatenating.',
     hint:'voxel_sizes = img.header.get_zooms()',
     answer:'voxel_sizes = img.header.get_zooms()',
     options:['voxel_sizes = img.header.get_zooms()','voxel_sizes = img.header["pixdim"]','voxel_sizes = img.affine[:3,:3].diagonal()','voxel_sizes = nib.voxel_sizes(img)'],
@@ -946,6 +1019,7 @@ const QUESTIONS = [
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Check the data dtype stored in the header of nibabel image `img`.',
+    usecase:'you\'re debugging precision issues or preparing data for a tool that requires a specific dtype (e.g. int16 for FSL).',
     hint:'dtype = img.header.get_data_dtype()',
     answer:'dtype = img.header.get_data_dtype()',
     options:['dtype = img.header.get_data_dtype()','dtype = img.dtype','dtype = img.get_fdata().dtype','dtype = img.header["datatype"]'],
@@ -953,6 +1027,7 @@ const QUESTIONS = [
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Apply a new affine to an existing nibabel image `img` and get the updated image.',
+    usecase:'you\'ve computed a corrected or resampled affine and need to update the image\'s spatial metadata without changing the voxel data.',
     hint:'new_img = nib.Nifti1Image(img.get_fdata(), new_affine)',
     answer:'new_img = nib.Nifti1Image(img.get_fdata(), new_affine)',
     options:['new_img = nib.Nifti1Image(img.get_fdata(), new_affine)','img.set_affine(new_affine)','img.affine = new_affine','new_img = img.reaffine(new_affine)'],
@@ -961,6 +1036,7 @@ const QUESTIONS = [
   // ── DATA OPS ──────────────────────────────────────────────────────────────
   { cat:'data', label:'data ops',
     prompt:'Use `zip()` to combine lists `names` and `scores` into a list of tuples.',
+    usecase:'you have two parallel lists and need to pair them — e.g. matching subject IDs with their corresponding scan files.',
     hint:'paired = list(zip(...))',
     answer:'paired = list(zip(names, scores))',
     options:['paired = list(zip(names, scores))','paired = zip(names, scores)','paired = [(n, s) for n, s in (names, scores)]','paired = names.zip(scores)'],
@@ -968,6 +1044,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Loop over list `items` with both index and value using the most Pythonic approach.',
+    usecase:'you need the position and the value simultaneously — e.g. tracking which subject number you\'re processing.',
     hint:'for i, item in enumerate(...):\n    print(i, item)',
     answer:'for i, item in enumerate(items):',
     options:['for i, item in enumerate(items):','for i in range(len(items)):','for i, item in zip(range(len(items)), items):','for i, item in items.enumerate():'],
@@ -975,6 +1052,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Sort a list of dicts `records` by "score" key in descending order in-place.',
+    usecase:'you want to rank results — e.g. ordering subjects by motion, effect size, or model performance.',
     hint:'records.sort(key=lambda x: x[...], reverse=...)',
     answer:'records.sort(key=lambda x: x["score"], reverse=True)',
     options:['records.sort(key=lambda x: x["score"], reverse=True)','records.sort(key=x["score"], reverse=True)','sorted(records, key=lambda x: x["score"])','records.sort(by="score", desc=True)'],
@@ -982,6 +1060,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Import `defaultdict` from the `collections` module.',
+    usecase:'you\'re grouping items by a key and don\'t want to manually initialize each list — e.g. grouping file paths by subject ID.',
     hint:'from collections import ...',
     answer:'from collections import defaultdict',
     options:['from collections import defaultdict','import collections.defaultdict','from collections import DefaultDict','import defaultdict from collections'],
@@ -989,6 +1068,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Catch a `ValueError` when converting string `s` to int with try/except.',
+    usecase:'you\'re parsing user input or reading a file where values might be malformed — e.g. a missing or non-numeric field.',
     hint:'try:\n    val = int(s)\nexcept ...:',
     answer:'except ValueError:',
     options:['except ValueError:','except (ValueError, TypeError):','catch ValueError:','except Exception as ValueError:'],
@@ -996,6 +1076,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Use `collections.Counter` to count occurrences of each element in list `words`.',
+    usecase:'you want frequency counts quickly — e.g. counting how many subjects are in each diagnostic group or how often each label appears.',
     hint:'from collections import Counter\ncounts = Counter(...)',
     answer:'counts = Counter(words)',
     options:['counts = Counter(words)','counts = Counter(*words)','counts = dict(Counter(words))','counts = {w: words.count(w) for w in words}'],
@@ -1003,6 +1084,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Use `functools.reduce` to compute the product of all elements in list `nums`.',
+    usecase:'you need to cumulatively apply an operation across a sequence — e.g. computing a combined probability or a chain of matrix multiplications.',
     hint:'from functools import reduce\nproduct = reduce(lambda a, b: a*b, ...)',
     answer:'product = reduce(lambda a, b: a * b, nums)',
     options:['product = reduce(lambda a, b: a * b, nums)','product = reduce(nums, lambda a,b: a*b)','product = functools.reduce(lambda a,b: a*b, nums)','product = sum([a*b for a,b in nums])'],
@@ -1010,6 +1092,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Use a generator expression to lazily compute the sum of squares of list `nums`.',
+    usecase:'you\'re computing a summary over a large dataset and want to avoid building the full intermediate list in memory.',
     hint:'total = sum(x**2 for x in nums)',
     answer:'total = sum(x**2 for x in nums)',
     options:['total = sum(x**2 for x in nums)','total = sum([x**2 for x in nums])','total = sum(map(lambda x: x**2, nums))','total = reduce(lambda a,x: a+x**2, nums, 0)'],
@@ -1017,6 +1100,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Read a JSON file "config.json" and parse it into a Python dict `config`.',
+    usecase:'you\'re loading a pipeline configuration, parameters file, or metadata stored as JSON — common in neuroimaging workflows.',
     hint:'import json\nwith open("config.json") as f:\n    config = json.load(...)',
     answer:'config = json.load(f)',
     options:['config = json.load(f)','config = json.loads(f)','config = json.read(f)','config = f.json()'],
@@ -1024,6 +1108,7 @@ const QUESTIONS = [
 
   { cat:'data', label:'data ops',
     prompt:'Use `pathlib.Path` to construct a path to "results/output.csv" in a platform-independent way.',
+    usecase:'you\'re writing code that will run on both Mac/Linux and Windows — hardcoded "/" separators break on Windows.',
     hint:'from pathlib import Path\npath = Path(...) / ...',
     answer:'path = Path("results") / "output.csv"',
     options:['path = Path("results") / "output.csv"','path = "results/output.csv"','path = os.path.join("results", "output.csv")','path = Path("results", "output.csv")'],
@@ -1076,6 +1161,7 @@ function loadQuestion() {
   badge.className = `cat-badge cat-${current.cat}`;
 
   document.getElementById('q-prompt').textContent = current.prompt;
+  document.getElementById('q-usecase-text').textContent = current.usecase;
   document.getElementById('q-hint').textContent = current.hint;
 
   const opts = shuffle([...current.options]);
@@ -1210,11 +1296,4 @@ function showEnd() {
   document.getElementById('progress-fill').style.width = '100%';
 }
 
-document.getElementById('type-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { answered ? nextQuestion() : submitAnswer(); }
-});
-
-restartGame();
-</script>
-</body>
-</html>
+document.getElementById('type-input').ad
