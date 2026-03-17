@@ -1296,4 +1296,11 @@ function showEnd() {
   document.getElementById('progress-fill').style.width = '100%';
 }
 
-document.getElementById('type-input').ad
+document.getElementById('type-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { answered ? nextQuestion() : submitAnswer(); }
+});
+
+restartGame();
+</script>
+</body>
+</html>
