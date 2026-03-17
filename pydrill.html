@@ -355,6 +355,53 @@
             line-height: 1.65;
         }
 
+        /* ── Output block ── */
+        .output-block {
+            display: none;
+            margin-top: 0.75rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 12px;
+            background: #1a1a2e;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #8b949e;
+        }
+
+        .output-header .terminal-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #3fb950;
+        }
+
+        .output-header span { color: #58a6ff; }
+
+        .output-body {
+            background: #0d1117;
+            padding: 0.75rem 1rem;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: #e6edf3;
+            line-height: 1.65;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .output-body .out-none {
+            color: #8b949e;
+            font-style: italic;
+        }
+
         /* ── Controls ── */
         .controls {
             display: flex;
@@ -611,6 +658,13 @@
                        autocomplete="off" spellcheck="false" />
                 <div class="feedback" id="feedback"></div>
                 <div class="explanation" id="explanation"></div>
+                <div class="output-block" id="output-block">
+                    <div class="output-header">
+                        <div class="terminal-dot"></div>
+                        <span>output</span>
+                    </div>
+                    <div class="output-body" id="output-body"></div>
+                </div>
             </div>
 
             <div class="controls">
@@ -660,7 +714,8 @@ const QUESTIONS = [
     hint:'def greet(name):\n    return ...',
     answer:'return "Hello, " + name',
     options:['return "Hello, " + name','print("Hello, " + name)','return f"Hello {name}"','yield "Hello, " + name'],
-    explanation:'`return` sends a value back to the caller. `print()` just outputs to the console and returns None.' },
+    explanation:'`return` sends a value back to the caller. `print()` just outputs to the console and returns None.',
+    output:'>>> greet("Gracie")\n\'Hello, Gracie\'' },
 
   { cat:'basics', label:'basics',
     prompt:'Create a list called `nums` containing integers 1–5 using a list comprehension.',
@@ -668,7 +723,8 @@ const QUESTIONS = [
     hint:'nums = [... for i in range(...)]',
     answer:'nums = [i for i in range(1, 6)]',
     options:['nums = [i for i in range(1, 6)]','nums = list(range(5))','nums = [i for i in range(5)]','nums = [1,2,3,4,5,6]'],
-    explanation:'range(1, 6) produces 1,2,3,4,5. range(5) produces 0–4. The upper bound is exclusive.' },
+    explanation:'range(1, 6) produces 1,2,3,4,5. range(5) produces 0–4. The upper bound is exclusive.',
+    output:'>>> nums\n[1, 2, 3, 4, 5]' },
 
   { cat:'basics', label:'basics',
     prompt:'Filter even numbers from a list `data` into a new list `evens` using a list comprehension.',
@@ -676,7 +732,8 @@ const QUESTIONS = [
     hint:'evens = [x for x in data if ...]',
     answer:'evens = [x for x in data if x % 2 == 0]',
     options:['evens = [x for x in data if x % 2 == 0]','evens = filter(data, lambda x: x%2)','evens = [x for x in data if x % 2]','evens = data[data % 2 == 0]'],
-    explanation:'`x % 2 == 0` tests for even. `x % 2` is truthy for odd numbers — the opposite of what we want.' },
+    explanation:'`x % 2 == 0` tests for even. `x % 2` is truthy for odd numbers — the opposite of what we want.',
+    output:'>>> data = [1, 2, 3, 4, 5, 6]\n>>> evens\n[2, 4, 6]' },
 
   { cat:'basics', label:'basics',
     prompt:'Open "data.txt" for reading using a context manager and store the file object as `f`.',
@@ -684,7 +741,8 @@ const QUESTIONS = [
     hint:'with open(...) as f:',
     answer:'with open("data.txt", "r") as f:',
     options:['with open("data.txt", "r") as f:','f = open("data.txt")','with open("data.txt") as file:','f = read("data.txt")'],
-    explanation:'Context managers auto-close files. The "r" mode is explicit best practice, though it is the default.' },
+    explanation:'Context managers auto-close files. The "r" mode is explicit best practice, though it is the default.',
+    output:'>>> type(f)\n&lt;class \'_io.TextIOWrapper\'&gt;\n# file is automatically closed after the with block' },
 
   { cat:'basics', label:'basics',
     prompt:'Create a dict mapping each word in list `words` to its length using a dict comprehension.',
@@ -692,7 +750,8 @@ const QUESTIONS = [
     hint:'lengths = {w: ... for w in words}',
     answer:'lengths = {w: len(w) for w in words}',
     options:['lengths = {w: len(w) for w in words}','lengths = dict([(w, len(w)) for w in words])','lengths = {words: len(words)}','lengths = map(len, words)'],
-    explanation:'Dict comprehensions use `{key: value for item in iterable}`. The dict() version works but is more verbose.' },
+    explanation:'Dict comprehensions use `{key: value for item in iterable}`. The dict() version works but is more verbose.',
+    output:'>>> words = ["brain", "fMRI", "scan"]\n>>> lengths\n{\'brain\': 5, \'fMRI\': 4, \'scan\': 4}' },
 
   { cat:'basics', label:'basics',
     prompt:'Unpack the tuple `point = (3, 7)` into variables `x` and `y` in a single line.',
@@ -700,7 +759,8 @@ const QUESTIONS = [
     hint:'x, y = ...',
     answer:'x, y = point',
     options:['x, y = point','x = point[0]; y = point[1]','(x, y) = point[0], point[1]','x, y = point[0]'],
-    explanation:'Tuple unpacking assigns each element positionally. Concise and Pythonic.' },
+    explanation:'Tuple unpacking assigns each element positionally. Concise and Pythonic.',
+    output:'>>> x\n3\n>>> y\n7' },
 
   { cat:'basics', label:'basics',
     prompt:'Use a lambda to create an anonymous function that squares its input, assigned to `sq`.',
@@ -708,7 +768,8 @@ const QUESTIONS = [
     hint:'sq = lambda x: ...',
     answer:'sq = lambda x: x ** 2',
     options:['sq = lambda x: x ** 2','sq = lambda x: x * x','sq = def(x): x**2','sq = function(x) { return x**2; }'],
-    explanation:'Both `x**2` and `x*x` work mathematically, but `x**2` is the idiomatic Python exponentiation operator.' },
+    explanation:'Both `x**2` and `x*x` work mathematically, but `x**2` is the idiomatic Python exponentiation operator.',
+    output:'>>> sq(4)\n16\n>>> sq(9)\n81' },
 
   { cat:'basics', label:'basics',
     prompt:'Use `*args` in a function signature to accept any number of positional arguments.',
@@ -716,7 +777,8 @@ const QUESTIONS = [
     hint:'def my_func(*args):\n    ...',
     answer:'def my_func(*args):',
     options:['def my_func(*args):','def my_func(args):','def my_func(**args):','def my_func(args=[]):'],
-    explanation:'`*args` collects extra positional args into a tuple. `**kwargs` does the same for keyword args as a dict.' },
+    explanation:'`*args` collects extra positional args into a tuple. `**kwargs` does the same for keyword args as a dict.',
+    output:'>>> def my_func(*args): return args\n>>> my_func(1, 2, 3)\n(1, 2, 3)' },
 
   { cat:'basics', label:'basics',
     prompt:'Check if a key "name" exists in dictionary `d`.',
@@ -724,7 +786,8 @@ const QUESTIONS = [
     hint:'if ... in d:',
     answer:'if "name" in d:',
     options:['if "name" in d:','if d.has_key("name"):','if d["name"] exists:','if d.contains("name"):'],
-    explanation:'`in` is the correct operator. `has_key()` was removed in Python 3. Accessing `d["name"]` raises KeyError if missing.' },
+    explanation:'`in` is the correct operator. `has_key()` was removed in Python 3. Accessing `d["name"]` raises KeyError if missing.',
+    output:'>>> d = {"name": "Gracie", "age": 26}\n>>> "name" in d\nTrue\n>>> "email" in d\nFalse' },
 
   { cat:'basics', label:'basics',
     prompt:'Join a list of strings `words` into a single space-separated string.',
@@ -732,7 +795,8 @@ const QUESTIONS = [
     hint:'sentence = " ".join(...)',
     answer:'sentence = " ".join(words)',
     options:['sentence = " ".join(words)','sentence = words.join(" ")','sentence = str(words)','sentence = concat(words, " ")'],
-    explanation:'`str.join(iterable)` is called on the separator, not the list. A common Python gotcha.' },
+    explanation:'`str.join(iterable)` is called on the separator, not the list. A common Python gotcha.',
+    output:'>>> words = ["default", "mode", "network"]\n>>> sentence\n\'default mode network\'' },
 
   { cat:'basics', label:'basics',
     prompt:'Get the last 3 elements of list `items` using slicing.',
@@ -740,7 +804,8 @@ const QUESTIONS = [
     hint:'last3 = items[...]',
     answer:'last3 = items[-3:]',
     options:['last3 = items[-3:]','last3 = items[len(items)-3:]','last3 = items[:3]','last3 = items[-3:-1]'],
-    explanation:'Negative indices count from the end. `[-3:]` slices from 3rd-last to the end. `[-3:-1]` misses the final element.' },
+    explanation:'Negative indices count from the end. `[-3:]` slices from 3rd-last to the end. `[-3:-1]` misses the final element.',
+    output:'>>> items = [10, 20, 30, 40, 50]\n>>> last3\n[30, 40, 50]' },
 
   { cat:'basics', label:'basics',
     prompt:'Raise a ValueError with message "Invalid input" inside a function.',
@@ -748,7 +813,8 @@ const QUESTIONS = [
     hint:'raise ...',
     answer:'raise ValueError("Invalid input")',
     options:['raise ValueError("Invalid input")','throw ValueError("Invalid input")','raise Error("Invalid input")','raise "Invalid input"'],
-    explanation:'Python uses `raise`, not `throw`. You instantiate the exception class with a message string.' },
+    explanation:'Python uses `raise`, not `throw`. You instantiate the exception class with a message string.',
+    output:'>>> raise ValueError("Invalid input")\nValueError: Invalid input' },
 
   { cat:'basics', label:'basics',
     prompt:'Use `isinstance()` to check if variable `x` is an integer.',
@@ -756,7 +822,8 @@ const QUESTIONS = [
     hint:'if isinstance(x, ...):',
     answer:'if isinstance(x, int):',
     options:['if isinstance(x, int):','if type(x) == int:','if x.type() == "int":','if x is int:'],
-    explanation:'`isinstance()` is preferred because it handles subclasses. `type(x) == int` is stricter and misses subclasses.' },
+    explanation:'`isinstance()` is preferred because it handles subclasses. `type(x) == int` is stricter and misses subclasses.',
+    output:'>>> isinstance(42, int)\nTrue\n>>> isinstance(3.14, int)\nFalse\n>>> isinstance(True, int)  # bool is a subclass of int!\nTrue' },
 
   { cat:'basics', label:'basics',
     prompt:'Use `map()` to apply function `double` to every element of list `nums`, returning a list.',
@@ -764,7 +831,8 @@ const QUESTIONS = [
     hint:'result = list(map(...))',
     answer:'result = list(map(double, nums))',
     options:['result = list(map(double, nums))','result = map(double, nums)','result = list(map(lambda x: double(x), nums))','result = [map(double, x) for x in nums]'],
-    explanation:'`map()` returns a lazy iterator — `list()` materializes it. Options 1 and 3 are both correct; option 1 is cleaner.' },
+    explanation:'`map()` returns a lazy iterator — `list()` materializes it. Options 1 and 3 are both correct; option 1 is cleaner.',
+    output:'>>> double = lambda x: x * 2\n>>> nums = [1, 2, 3, 4]\n>>> result\n[2, 4, 6, 8]' },
 
   { cat:'basics', label:'basics',
     prompt:'Swap the values of variables `a` and `b` in a single line without a temp variable.',
@@ -772,7 +840,8 @@ const QUESTIONS = [
     hint:'a, b = ...',
     answer:'a, b = b, a',
     options:['a, b = b, a','temp = a; a = b; b = temp','a = b; b = a','(a, b) = (b, a)'],
-    explanation:'Python evaluates the right side fully before unpacking. One of the most elegant Pythonic idioms.' },
+    explanation:'Python evaluates the right side fully before unpacking. One of the most elegant Pythonic idioms.',
+    output:'>>> a, b = 10, 99\n>>> a, b = b, a\n>>> a\n99\n>>> b\n10' },
 
   // ── NUMPY ──────────────────────────────────────────────────────────────
   { cat:'numpy', label:'numpy',
@@ -781,7 +850,8 @@ const QUESTIONS = [
     hint:'z = np.zeros(...)',
     answer:'z = np.zeros((3, 3))',
     options:['z = np.zeros((3, 3))','z = np.zeros([3, 3])','z = np.array([[0]*3]*3)','z = np.empty((3, 3))'],
-    explanation:'`np.zeros()` takes a shape tuple. `np.empty()` allocates memory without initializing — values are unpredictable.' },
+    explanation:'`np.zeros()` takes a shape tuple. `np.empty()` allocates memory without initializing — values are unpredictable.',
+    output:'>>> z\narray([[0., 0., 0.],\n       [0., 0., 0.],\n       [0., 0., 0.]])' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Compute the mean of each column in a 2D array `arr`.',
@@ -789,7 +859,8 @@ const QUESTIONS = [
     hint:'col_means = np.mean(arr, axis=...)',
     answer:'col_means = np.mean(arr, axis=0)',
     options:['col_means = np.mean(arr, axis=0)','col_means = np.mean(arr, axis=1)','col_means = arr.mean()','col_means = np.average(arr, axis=0)'],
-    explanation:'axis=0 collapses across rows → one value per column. axis=1 collapses across columns → one value per row.' },
+    explanation:'axis=0 collapses across rows → one value per column. axis=1 collapses across columns → one value per row.',
+    output:'>>> arr = np.array([[1,2,3],[4,5,6]])\n>>> col_means\narray([2.5, 3.5, 4.5])' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Reshape a 1D array `v` with 12 elements into a 3×4 matrix.',
@@ -797,7 +868,8 @@ const QUESTIONS = [
     hint:'m = v.reshape(...)',
     answer:'m = v.reshape(3, 4)',
     options:['m = v.reshape(3, 4)','m = np.reshape(v, (3, 4))','m = v.resize(3, 4)','m = v.reshape((4, 3))'],
-    explanation:'reshape(3,4) and reshape((3,4)) are equivalent. resize() modifies in-place with possible data truncation/padding.' },
+    explanation:'reshape(3,4) and reshape((3,4)) are equivalent. resize() modifies in-place with possible data truncation/padding.',
+    output:'>>> v = np.arange(12)\n>>> m\narray([[ 0,  1,  2,  3],\n       [ 4,  5,  6,  7],\n       [ 8,  9, 10, 11]])\n>>> m.shape\n(3, 4)' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Extract all elements from array `a` that are greater than 5 using boolean indexing.',
@@ -805,7 +877,8 @@ const QUESTIONS = [
     hint:'result = a[a > ...]',
     answer:'result = a[a > 5]',
     options:['result = a[a > 5]','result = a.where(a > 5)','result = np.filter(a, a > 5)','result = [x for x in a if x > 5]'],
-    explanation:'Boolean masking is the core NumPy pattern: create a mask with `a > 5`, then use it as an index.' },
+    explanation:'Boolean masking is the core NumPy pattern: create a mask with `a > 5`, then use it as an index.',
+    output:'>>> a = np.array([2, 7, 1, 9, 4, 6])\n>>> result\narray([7, 9, 6])' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Stack two 1D arrays `a` and `b` vertically into a 2D array.',
@@ -813,7 +886,8 @@ const QUESTIONS = [
     hint:'stacked = np.vstack(...)',
     answer:'stacked = np.vstack([a, b])',
     options:['stacked = np.vstack([a, b])','stacked = np.hstack([a, b])','stacked = np.stack([a, b], axis=0)','stacked = np.concatenate([a, b])'],
-    explanation:'`vstack` adds new rows. `hstack` appends columns. `concatenate` flattens 1D arrays end-to-end by default.' },
+    explanation:'`vstack` adds new rows. `hstack` appends columns. `concatenate` flattens 1D arrays end-to-end by default.',
+    output:'>>> a = np.array([1, 2, 3])\n>>> b = np.array([4, 5, 6])\n>>> stacked\narray([[1, 2, 3],\n       [4, 5, 6]])\n>>> stacked.shape\n(2, 3)' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Create 50 evenly spaced values between 0 and 1 inclusive.',
@@ -821,7 +895,8 @@ const QUESTIONS = [
     hint:'arr = np.linspace(...)',
     answer:'arr = np.linspace(0, 1, 50)',
     options:['arr = np.linspace(0, 1, 50)','arr = np.arange(0, 1, 50)','arr = np.linspace(0, 1, num=49)','arr = np.range(0, 1, 50)'],
-    explanation:'linspace(start, stop, num) includes both endpoints. arange(start, stop, step) uses step size, not count.' },
+    explanation:'linspace(start, stop, num) includes both endpoints. arange(start, stop, step) uses step size, not count.',
+    output:'>>> arr.shape\n(50,)\n>>> arr[0], arr[-1]\n(0.0, 1.0)\n>>> arr[1] - arr[0]  # step size\n0.020408163265306122' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Compute the dot product of two 1D arrays `u` and `v`.',
@@ -829,7 +904,8 @@ const QUESTIONS = [
     hint:'result = np.dot(...)',
     answer:'result = np.dot(u, v)',
     options:['result = np.dot(u, v)','result = u * v','result = u @ v','result = np.multiply(u, v)'],
-    explanation:'`np.dot()` and `@` both compute dot product for 1D arrays. `u * v` is element-wise multiplication, not dot product.' },
+    explanation:'`np.dot()` and `@` both compute dot product for 1D arrays. `u * v` is element-wise multiplication, not dot product.',
+    output:'>>> u = np.array([1, 2, 3])\n>>> v = np.array([4, 5, 6])\n>>> np.dot(u, v)   # 1*4 + 2*5 + 3*6\n32' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Get the shape of numpy array `arr` as a tuple.',
@@ -837,7 +913,8 @@ const QUESTIONS = [
     hint:'shape = arr.shape',
     answer:'shape = arr.shape',
     options:['shape = arr.shape','shape = arr.size','shape = np.shape(arr)','shape = len(arr)'],
-    explanation:'`.shape` is a tuple of dimension sizes like (rows, cols). `.size` is the total number of elements.' },
+    explanation:'`.shape` is a tuple of dimension sizes like (rows, cols). `.size` is the total number of elements.',
+    output:'>>> arr = np.zeros((91, 109, 91, 200))  # typical fMRI volume\n>>> arr.shape\n(91, 109, 91, 200)\n>>> arr.size\n181621800' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Compute the standard deviation of array `data` along axis 0.',
@@ -845,7 +922,8 @@ const QUESTIONS = [
     hint:'sd = np.std(data, axis=...)',
     answer:'sd = np.std(data, axis=0)',
     options:['sd = np.std(data, axis=0)','sd = np.std(data)','sd = data.std(axis=1)','sd = np.var(data, axis=0)'],
-    explanation:'`axis=0` computes std per column. Without axis, std of the whole flattened array. `np.var` is variance, not std.' },
+    explanation:'`axis=0` computes std per column. Without axis, std of the whole flattened array. `np.var` is variance, not std.',
+    output:'>>> data = np.array([[2,4],[6,8],[10,12]])\n>>> np.std(data, axis=0)  # std per column\narray([3.26598632, 3.26598632])' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Create an identity matrix of size 4×4 using numpy.',
@@ -853,7 +931,8 @@ const QUESTIONS = [
     hint:'I = np.eye(...)',
     answer:'I = np.eye(4)',
     options:['I = np.eye(4)','I = np.identity(4)','I = np.ones((4, 4))','I = np.diag(np.ones(4))'],
-    explanation:'`np.eye(n)` is the standard idiom. `np.identity(n)` also works. `np.ones()` gives all-ones, not identity.' },
+    explanation:'`np.eye(n)` is the standard idiom. `np.identity(n)` also works. `np.ones()` gives all-ones, not identity.',
+    output:'>>> np.eye(4)\narray([[1., 0., 0., 0.],\n       [0., 1., 0., 0.],\n       [0., 0., 1., 0.],\n       [0., 0., 0., 1.]])' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Find the index of the maximum value in 1D array `arr`.',
@@ -861,7 +940,8 @@ const QUESTIONS = [
     hint:'idx = np.argmax(...)',
     answer:'idx = np.argmax(arr)',
     options:['idx = np.argmax(arr)','idx = np.max(arr)','idx = arr.index(max(arr))','idx = np.where(arr == arr.max())'],
-    explanation:'`argmax` returns the index of the max. `np.max` returns the value. Lists have `.index()`, but ndarrays do not.' },
+    explanation:'`argmax` returns the index of the max. `np.max` returns the value. Lists have `.index()`, but ndarrays do not.',
+    output:'>>> arr = np.array([3, 9, 1, 7, 2])\n>>> np.argmax(arr)\n1\n>>> arr[1]  # confirming it is the max\n9' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Normalize array `arr` to have zero mean and unit variance (z-score normalization).',
@@ -869,7 +949,8 @@ const QUESTIONS = [
     hint:'norm = (arr - arr.mean()) / arr...',
     answer:'norm = (arr - arr.mean()) / arr.std()',
     options:['norm = (arr - arr.mean()) / arr.std()','norm = arr / arr.max()','norm = (arr - np.min(arr)) / (np.max(arr) - np.min(arr))','norm = arr.normalize()'],
-    explanation:'Z-score: subtract mean, divide by std. Min-max normalization (option 3) scales to [0,1] — different operation.' },
+    explanation:'Z-score: subtract mean, divide by std. Min-max normalization (option 3) scales to [0,1] — different operation.',
+    output:'>>> arr = np.array([2., 4., 6., 8.])\n>>> norm = (arr - arr.mean()) / arr.std()\n>>> norm\narray([-1.34164079, -0.4472136 ,  0.4472136 ,  1.34164079])\n>>> norm.mean().round(10)\n0.0\n>>> norm.std().round(10)\n1.0' },
 
   { cat:'numpy', label:'numpy',
     prompt:'Concatenate two 2D arrays `a` and `b` along axis 1 (column-wise).',
@@ -877,7 +958,8 @@ const QUESTIONS = [
     hint:'c = np.concatenate([a, b], axis=...)',
     answer:'c = np.concatenate([a, b], axis=1)',
     options:['c = np.concatenate([a, b], axis=1)','c = np.concatenate([a, b], axis=0)','c = np.hstack([a, b])','c = np.vstack([a, b])'],
-    explanation:'axis=1 appends columns. axis=0 appends rows. `np.hstack` is a convenient shorthand for axis=1.' },
+    explanation:'axis=1 appends columns. axis=0 appends rows. `np.hstack` is a convenient shorthand for axis=1.',
+    output:'>>> a = np.array([[1,2],[3,4]])\n>>> b = np.array([[5],[6]])\n>>> np.concatenate([a,b], axis=1)\narray([[1, 2, 5],\n       [3, 4, 6]])\n>>> # shape goes from (2,2)+(2,1) → (2,3)' },
 
   // ── PANDAS ──────────────────────────────────────────────────────────────
   { cat:'pandas', label:'pandas',
@@ -886,7 +968,8 @@ const QUESTIONS = [
     hint:'import pandas as pd\ndf = pd.read_csv(...)',
     answer:'df = pd.read_csv("data.csv")',
     options:['df = pd.read_csv("data.csv")','df = pd.DataFrame("data.csv")','df = pd.load_csv("data.csv")','df = pandas.read("data.csv")'],
-    explanation:'`pd.read_csv()` is the standard loader. It infers dtypes and handles headers automatically.' },
+    explanation:'`pd.read_csv()` is the standard loader. It infers dtypes and handles headers automatically.',
+    output:'>>> type(df)\n&lt;class \'pandas.core.frame.DataFrame\'&gt;\n>>> df.shape\n(120, 8)  # 120 rows, 8 columns\n>>> df.head(2)\n   subject  age  group  score\n0     S001   24      1   87.3\n1     S002   31      0   92.1' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Select the "age" column from DataFrame `df` as a Series.',
@@ -894,7 +977,8 @@ const QUESTIONS = [
     hint:'ages = df[...]',
     answer:'ages = df["age"]',
     options:['ages = df["age"]','ages = df.age()','ages = df.get("age")','ages = df[["age"]]'],
-    explanation:'`df["age"]` returns a Series. `df[["age"]]` (double brackets) returns a single-column DataFrame.' },
+    explanation:'`df["age"]` returns a Series. `df[["age"]]` (double brackets) returns a single-column DataFrame.',
+    output:'>>> type(df["age"])\n&lt;class \'pandas.core.series.Series\'&gt;\n>>> df["age"]\n0    24\n1    31\n2    28\nName: age, dtype: int64' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Filter rows in `df` where the "score" column is greater than 90.',
@@ -902,7 +986,8 @@ const QUESTIONS = [
     hint:'high = df[df["score"] > ...]',
     answer:'high = df[df["score"] > 90]',
     options:['high = df[df["score"] > 90]','high = df.filter(score > 90)','high = df.query("score > 90")','high = df.where(df["score"] > 90)'],
-    explanation:'Boolean indexing is most common. `df.query()` also works. `df.where()` preserves shape, filling non-matching with NaN.' },
+    explanation:'Boolean indexing is most common. `df.query()` also works. `df.where()` preserves shape, filling non-matching with NaN.',
+    output:'>>> df.shape\n(120, 4)\n>>> high = df[df["score"] > 90]\n>>> high.shape\n(34, 4)  # 34 subjects scored above 90\n>>> high["score"].min()\n90.1' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Group `df` by "category" and compute the mean of "value" for each group.',
@@ -910,7 +995,8 @@ const QUESTIONS = [
     hint:'result = df.groupby(...)["value"].mean()',
     answer:'result = df.groupby("category")["value"].mean()',
     options:['result = df.groupby("category")["value"].mean()','result = df.group("category").mean("value")','result = df.groupby(["category","value"]).mean()','result = df["value"].groupby(df["category"]).mean()'],
-    explanation:'groupby → select column → aggregate. The last option also works but is less readable.' },
+    explanation:'groupby → select column → aggregate. The last option also works but is less readable.',
+    output:'>>> result\ncategory\nADHD      87.4\nControl    94.2\nName: value, dtype: float64' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Drop all rows with any missing values from `df`, storing the result back in `df`.',
@@ -918,7 +1004,8 @@ const QUESTIONS = [
     hint:'df = df.dropna(...)',
     answer:'df = df.dropna()',
     options:['df = df.dropna()','df.dropna(inplace=True)','df = df.fillna(method="drop")','df = df[df.notnull()]'],
-    explanation:'`dropna()` returns a new DataFrame. `inplace=True` modifies `df` directly without reassignment — both are valid.' },
+    explanation:'`dropna()` returns a new DataFrame. `inplace=True` modifies `df` directly without reassignment — both are valid.',
+    output:'>>> df.shape\n(120, 4)\n>>> df.isnull().sum()\nsubject    0\nage        3\nscore      5\ndtype: int64\n>>> df = df.dropna()\n>>> df.shape\n(113, 4)  # 7 rows removed' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Sort `df` by "timestamp" in descending order into `df_sorted`.',
@@ -926,7 +1013,8 @@ const QUESTIONS = [
     hint:'df_sorted = df.sort_values(...)',
     answer:'df_sorted = df.sort_values("timestamp", ascending=False)',
     options:['df_sorted = df.sort_values("timestamp", ascending=False)','df_sorted = df.sort_values("timestamp")','df_sorted = df.orderby("timestamp", desc=True)','df_sorted = df.sort("timestamp", ascending=False)'],
-    explanation:'`sort_values()` defaults to ascending. Pass `ascending=False` for descending. There is no `.sort()` or `.orderby()` in pandas.' },
+    explanation:'`sort_values()` defaults to ascending. Pass `ascending=False` for descending. There is no `.sort()` or `.orderby()` in pandas.',
+    output:'>>> df_sorted["timestamp"].iloc[:3]\n0   2025-11-01\n1   2025-09-15\n2   2025-06-03\nName: timestamp, dtype: object' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Add a new column "bmi" to `df` computed as weight divided by height squared.',
@@ -934,7 +1022,8 @@ const QUESTIONS = [
     hint:'df["bmi"] = ...',
     answer:'df["bmi"] = df["weight"] / df["height"] ** 2',
     options:['df["bmi"] = df["weight"] / df["height"] ** 2','df.bmi = df.weight / df.height ** 2','df["bmi"] = df["weight"] / (df["height"] * df["height"])','df.insert("bmi", df["weight"] / df["height"]**2)'],
-    explanation:'Column assignment with `df["col"] = expr` is standard. Options 1 and 3 are both correct; 1 is more concise.' },
+    explanation:'Column assignment with `df["col"] = expr` is standard. Options 1 and 3 are both correct; 1 is more concise.',
+    output:'>>> df[["weight","height","bmi"]].head(3)\n   weight  height        bmi\n0    70.0    1.75  22.857143\n1    58.5    1.62  22.294472\n2    85.2    1.80  26.296296' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Get the number of non-null values in each column of `df`.',
@@ -942,7 +1031,8 @@ const QUESTIONS = [
     hint:'df.count()',
     answer:'df.count()',
     options:['df.count()','df.notnull().sum()','len(df) - df.isnull().sum()','df.info()'],
-    explanation:'`df.count()` counts non-nulls per column. `df.notnull().sum()` is equivalent. `df.info()` prints a summary but returns None.' },
+    explanation:'`df.count()` counts non-nulls per column. `df.notnull().sum()` is equivalent. `df.info()` prints a summary but returns None.',
+    output:'>>> df.count()\nsubject    120\nage        117\ngroup      120\nscore      115\ndtype: int64' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Merge DataFrames `left` and `right` on column "id" using an inner join.',
@@ -950,7 +1040,8 @@ const QUESTIONS = [
     hint:'merged = pd.merge(left, right, on=..., how=...)',
     answer:'merged = pd.merge(left, right, on="id", how="inner")',
     options:['merged = pd.merge(left, right, on="id", how="inner")','merged = left.join(right, on="id")','merged = pd.merge(left, right, on="id")','merged = left.merge(right, on="id", how="inner")'],
-    explanation:'`pd.merge()` is the most explicit. `how="inner"` is the default, so option 3 also works. Options 1 and 4 are both correct.' },
+    explanation:'`pd.merge()` is the most explicit. `how="inner"` is the default, so option 3 also works. Options 1 and 4 are both correct.',
+    output:'>>> left.shape, right.shape\n((100, 3), (95, 4))\n>>> merged = pd.merge(left, right, on="id", how="inner")\n>>> merged.shape\n(88, 6)  # only IDs present in both tables' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Reset the index of `df` and drop the old index.',
@@ -958,7 +1049,8 @@ const QUESTIONS = [
     hint:'df = df.reset_index(...)',
     answer:'df = df.reset_index(drop=True)',
     options:['df = df.reset_index(drop=True)','df = df.reset_index()','df.index = range(len(df))','df = df.reindex()'],
-    explanation:'`reset_index(drop=True)` discards the old index. Without `drop=True`, the old index becomes a column.' },
+    explanation:'`reset_index(drop=True)` discards the old index. Without `drop=True`, the old index becomes a column.',
+    output:'>>> df.index.tolist()[:5]  # before\n[3, 7, 12, 45, 67]\n>>> df = df.reset_index(drop=True)\n>>> df.index.tolist()[:5]  # after\n[0, 1, 2, 3, 4]' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Compute a pivot table of `df` with "region" as rows, "product" as columns, and mean "sales" as values.',
@@ -966,7 +1058,8 @@ const QUESTIONS = [
     hint:'pt = df.pivot_table(values=..., index=..., columns=..., aggfunc=...)',
     answer:'pt = df.pivot_table(values="sales", index="region", columns="product", aggfunc="mean")',
     options:['pt = df.pivot_table(values="sales", index="region", columns="product", aggfunc="mean")','pt = df.pivot("region", "product", "sales")','pt = df.groupby(["region","product"])["sales"].mean().unstack()','pt = pd.crosstab(df["region"], df["product"], values=df["sales"], aggfunc="mean")'],
-    explanation:'`pivot_table` handles duplicates via aggfunc. `pivot()` raises an error if there are duplicate index/column pairs.' },
+    explanation:'`pivot_table` handles duplicates via aggfunc. `pivot()` raises an error if there are duplicate index/column pairs.',
+    output:'product   A      B      C\nregion\nEast    42.1   38.5   51.2\nNorth   29.8   44.0   36.7\nWest    55.3   41.1   48.9' },
 
   // ── NIBABEL ──────────────────────────────────────────────────────────────
   { cat:'nibabel', label:'nibabel',
@@ -975,7 +1068,8 @@ const QUESTIONS = [
     hint:'img = nib.load(...)',
     answer:'img = nib.load("brain.nii.gz")',
     options:['img = nib.load("brain.nii.gz")','img = nib.read("brain.nii.gz")','img = nib.Nifti1Image("brain.nii.gz")','img = nib.open("brain.nii.gz")'],
-    explanation:'`nib.load()` is the universal nibabel loader. It returns an image object — the data array is not loaded until requested.' },
+    explanation:'`nib.load()` is the universal nibabel loader. It returns an image object — the data array is not loaded until requested.',
+    output:'>>> type(img)\n&lt;class \'nibabel.nifti1.Nifti1Image\'&gt;\n>>> img.shape\n(91, 109, 91)' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Extract the raw numpy data array from nibabel image `img`.',
@@ -983,7 +1077,8 @@ const QUESTIONS = [
     hint:'data = img.get_fdata()',
     answer:'data = img.get_fdata()',
     options:['data = img.get_fdata()','data = img.get_data()','data = img.data','data = np.array(img)'],
-    explanation:'`get_fdata()` is the modern API (replaces deprecated `get_data()`). Returns a float64 array scaled by slope/intercept.' },
+    explanation:'`get_fdata()` is the modern API (replaces deprecated `get_data()`). Returns a float64 array scaled by slope/intercept.',
+    output:'>>> data = img.get_fdata()\n>>> type(data)\n&lt;class \'numpy.ndarray\'&gt;\n>>> data.dtype\ndtype(\'float64\')\n>>> data.shape\n(91, 109, 91)' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Get the voxel-to-world affine transformation matrix from nibabel image `img`.',
@@ -991,7 +1086,8 @@ const QUESTIONS = [
     hint:'affine = img.affine',
     answer:'affine = img.affine',
     options:['affine = img.affine','affine = img.get_affine()','affine = img.header["affine"]','affine = img.transform'],
-    explanation:'`img.affine` is the 4×4 matrix mapping voxel indices to world (mm) coordinates. `get_affine()` is deprecated.' },
+    explanation:'`img.affine` is the 4×4 matrix mapping voxel indices to world (mm) coordinates. `get_affine()` is deprecated.',
+    output:'>>> img.affine\narray([[  -2.,    0.,    0.,   90.],\n       [   0.,    2.,    0., -126.],\n       [   0.,    0.,    2.,  -72.],\n       [   0.,    0.,    0.,    1.]])\n>>> img.affine.shape\n(4, 4)' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Save nibabel image `new_img` to file "output.nii.gz".',
@@ -999,7 +1095,8 @@ const QUESTIONS = [
     hint:'nib.save(...)',
     answer:'nib.save(new_img, "output.nii.gz")',
     options:['nib.save(new_img, "output.nii.gz")','new_img.save("output.nii.gz")','nib.write(new_img, "output.nii.gz")','nib.to_file(new_img, "output.nii.gz")'],
-    explanation:'`nib.save(img, filename)` is the standard save function. The .gz extension triggers gzip compression.' },
+    explanation:'`nib.save(img, filename)` is the standard save function. The .gz extension triggers gzip compression.',
+    output:'# No return value — file written to disk\n>>> import os\n>>> os.path.exists("output.nii.gz")\nTrue\n>>> os.path.getsize("output.nii.gz")\n1842176  # bytes' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Create a new Nifti1Image from numpy array `data` and affine `affine`.',
@@ -1007,7 +1104,8 @@ const QUESTIONS = [
     hint:'new_img = nib.Nifti1Image(...)',
     answer:'new_img = nib.Nifti1Image(data, affine)',
     options:['new_img = nib.Nifti1Image(data, affine)','new_img = nib.create(data, affine)','new_img = nib.NiftiImage(data, affine=affine)','new_img = nib.Nifti1Image(affine, data)'],
-    explanation:'Constructor order matters: data first, affine second. Swapping them creates a broken image silently.' },
+    explanation:'Constructor order matters: data first, affine second. Swapping them creates a broken image silently.',
+    output:'>>> new_img = nib.Nifti1Image(data, affine)\n>>> type(new_img)\n&lt;class \'nibabel.nifti1.Nifti1Image\'&gt;\n>>> new_img.shape\n(91, 109, 91)\n>>> np.array_equal(new_img.affine, affine)\nTrue' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Get the voxel dimensions (mm spacing) from nibabel image `img`.',
@@ -1015,7 +1113,8 @@ const QUESTIONS = [
     hint:'voxel_sizes = img.header.get_zooms()',
     answer:'voxel_sizes = img.header.get_zooms()',
     options:['voxel_sizes = img.header.get_zooms()','voxel_sizes = img.header["pixdim"]','voxel_sizes = img.affine[:3,:3].diagonal()','voxel_sizes = nib.voxel_sizes(img)'],
-    explanation:'`get_zooms()` returns a tuple of voxel sizes in mm. `pixdim` contains raw header values including a sign byte.' },
+    explanation:'`get_zooms()` returns a tuple of voxel sizes in mm. `pixdim` contains raw header values including a sign byte.',
+    output:'>>> img.header.get_zooms()\n(2.0, 2.0, 2.0)  # 2mm isotropic voxels\n# for a 4D fMRI volume:\n>>> func_img.header.get_zooms()\n(3.0, 3.0, 3.0, 2.0)  # 3mm voxels, 2s TR' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Check the data dtype stored in the header of nibabel image `img`.',
@@ -1023,7 +1122,8 @@ const QUESTIONS = [
     hint:'dtype = img.header.get_data_dtype()',
     answer:'dtype = img.header.get_data_dtype()',
     options:['dtype = img.header.get_data_dtype()','dtype = img.dtype','dtype = img.get_fdata().dtype','dtype = img.header["datatype"]'],
-    explanation:'`get_data_dtype()` reads the stored dtype from the NIfTI header. `get_fdata()` always returns float64 regardless.' },
+    explanation:'`get_data_dtype()` reads the stored dtype from the NIfTI header. `get_fdata()` always returns float64 regardless.',
+    output:'>>> img.header.get_data_dtype()\ndtype(\'int16\')     # stored on disk as int16\n>>> img.get_fdata().dtype\ndtype(\'float64\')   # but get_fdata() always returns float64' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Apply a new affine to an existing nibabel image `img` and get the updated image.',
@@ -1031,7 +1131,8 @@ const QUESTIONS = [
     hint:'new_img = nib.Nifti1Image(img.get_fdata(), new_affine)',
     answer:'new_img = nib.Nifti1Image(img.get_fdata(), new_affine)',
     options:['new_img = nib.Nifti1Image(img.get_fdata(), new_affine)','img.set_affine(new_affine)','img.affine = new_affine','new_img = img.reaffine(new_affine)'],
-    explanation:'The cleanest approach is constructing a new image with the updated affine. `img.affine` is read-only on loaded images.' },
+    explanation:'The cleanest approach is constructing a new image with the updated affine. `img.affine` is read-only on loaded images.',
+    output:'>>> np.array_equal(img.affine, new_affine)\nFalse\n>>> new_img = nib.Nifti1Image(img.get_fdata(), new_affine)\n>>> np.array_equal(new_img.affine, new_affine)\nTrue' },
 
   // ── DATA OPS ──────────────────────────────────────────────────────────────
   { cat:'data', label:'data ops',
@@ -1040,7 +1141,8 @@ const QUESTIONS = [
     hint:'paired = list(zip(...))',
     answer:'paired = list(zip(names, scores))',
     options:['paired = list(zip(names, scores))','paired = zip(names, scores)','paired = [(n, s) for n, s in (names, scores)]','paired = names.zip(scores)'],
-    explanation:'`zip()` returns a lazy iterator. `list()` materializes it. Without `list()`, you get a zip object, not a list.' },
+    explanation:'`zip()` returns a lazy iterator. `list()` materializes it. Without `list()`, you get a zip object, not a list.',
+    output:'>>> names = ["S001", "S002", "S003"]\n>>> scores = [87, 92, 78]\n>>> paired\n[(\'S001\', 87), (\'S002\', 92), (\'S003\', 78)]' },
 
   { cat:'data', label:'data ops',
     prompt:'Loop over list `items` with both index and value using the most Pythonic approach.',
@@ -1048,7 +1150,8 @@ const QUESTIONS = [
     hint:'for i, item in enumerate(...):\n    print(i, item)',
     answer:'for i, item in enumerate(items):',
     options:['for i, item in enumerate(items):','for i in range(len(items)):','for i, item in zip(range(len(items)), items):','for i, item in items.enumerate():'],
-    explanation:'`enumerate()` yields (index, value) pairs cleanly. `range(len())` is verbose and considered un-Pythonic.' },
+    explanation:'`enumerate()` yields (index, value) pairs cleanly. `range(len())` is verbose and considered un-Pythonic.',
+    output:'>>> items = ["DMN", "FPN", "SMN"]\n>>> for i, item in enumerate(items):\n...     print(i, item)\n0 DMN\n1 FPN\n2 SMN' },
 
   { cat:'data', label:'data ops',
     prompt:'Sort a list of dicts `records` by "score" key in descending order in-place.',
@@ -1056,7 +1159,8 @@ const QUESTIONS = [
     hint:'records.sort(key=lambda x: x[...], reverse=...)',
     answer:'records.sort(key=lambda x: x["score"], reverse=True)',
     options:['records.sort(key=lambda x: x["score"], reverse=True)','records.sort(key=x["score"], reverse=True)','sorted(records, key=lambda x: x["score"])','records.sort(by="score", desc=True)'],
-    explanation:'`key=` takes a callable. `sorted()` returns a new list; `.sort()` modifies in place. `reverse=True` for descending.' },
+    explanation:'`key=` takes a callable. `sorted()` returns a new list; `.sort()` modifies in place. `reverse=True` for descending.',
+    output:'>>> records = [{"id":"S1","score":72}, {"id":"S2","score":91}, {"id":"S3","score":85}]\n>>> records.sort(key=lambda x: x["score"], reverse=True)\n>>> records\n[{\'id\': \'S2\', \'score\': 91}, {\'id\': \'S3\', \'score\': 85}, {\'id\': \'S1\', \'score\': 72}]' },
 
   { cat:'data', label:'data ops',
     prompt:'Import `defaultdict` from the `collections` module.',
@@ -1064,7 +1168,8 @@ const QUESTIONS = [
     hint:'from collections import ...',
     answer:'from collections import defaultdict',
     options:['from collections import defaultdict','import collections.defaultdict','from collections import DefaultDict','import defaultdict from collections'],
-    explanation:'`from module import name` is the correct syntax. Python module names are lowercase; `DefaultDict` does not exist.' },
+    explanation:'`from module import name` is the correct syntax. Python module names are lowercase; `DefaultDict` does not exist.',
+    output:'>>> from collections import defaultdict\n>>> d = defaultdict(list)\n>>> d["S001"].append("run1.nii")\n>>> d["S001"].append("run2.nii")\n>>> d["S002"].append("run1.nii")\n>>> dict(d)\n{\'S001\': [\'run1.nii\', \'run2.nii\'], \'S002\': [\'run1.nii\']}' },
 
   { cat:'data', label:'data ops',
     prompt:'Catch a `ValueError` when converting string `s` to int with try/except.',
@@ -1072,7 +1177,8 @@ const QUESTIONS = [
     hint:'try:\n    val = int(s)\nexcept ...:',
     answer:'except ValueError:',
     options:['except ValueError:','except (ValueError, TypeError):','catch ValueError:','except Exception as ValueError:'],
-    explanation:'Python uses `except`, not `catch`. Name the specific exception type for precise error handling.' },
+    explanation:'Python uses `except`, not `catch`. Name the specific exception type for precise error handling.',
+    output:'>>> s = "n/a"\n>>> try:\n...     val = int(s)\n... except ValueError:\n...     val = 0\n...     print(f"Could not convert {s!r}, using 0")\nCould not convert \'n/a\', using 0' },
 
   { cat:'data', label:'data ops',
     prompt:'Use `collections.Counter` to count occurrences of each element in list `words`.',
@@ -1080,7 +1186,8 @@ const QUESTIONS = [
     hint:'from collections import Counter\ncounts = Counter(...)',
     answer:'counts = Counter(words)',
     options:['counts = Counter(words)','counts = Counter(*words)','counts = dict(Counter(words))','counts = {w: words.count(w) for w in words}'],
-    explanation:'`Counter(iterable)` counts elements directly. It returns a Counter object (subclass of dict) with `.most_common()` etc.' },
+    explanation:'`Counter(iterable)` counts elements directly. It returns a Counter object (subclass of dict) with `.most_common()` etc.',
+    output:'>>> words = ["ADHD","Control","ADHD","ADHD","Control"]\n>>> counts = Counter(words)\n>>> counts\nCounter({\'ADHD\': 3, \'Control\': 2})\n>>> counts.most_common(1)\n[(\'ADHD\', 3)]' },
 
   { cat:'data', label:'data ops',
     prompt:'Use `functools.reduce` to compute the product of all elements in list `nums`.',
@@ -1088,7 +1195,8 @@ const QUESTIONS = [
     hint:'from functools import reduce\nproduct = reduce(lambda a, b: a*b, ...)',
     answer:'product = reduce(lambda a, b: a * b, nums)',
     options:['product = reduce(lambda a, b: a * b, nums)','product = reduce(nums, lambda a,b: a*b)','product = functools.reduce(lambda a,b: a*b, nums)','product = sum([a*b for a,b in nums])'],
-    explanation:'`reduce(function, iterable)` applies function cumulatively. Argument order is function first, iterable second.' },
+    explanation:'`reduce(function, iterable)` applies function cumulatively. Argument order is function first, iterable second.',
+    output:'>>> from functools import reduce\n>>> nums = [1, 2, 3, 4, 5]\n>>> reduce(lambda a, b: a * b, nums)\n120  # 1×2×3×4×5' },
 
   { cat:'data', label:'data ops',
     prompt:'Use a generator expression to lazily compute the sum of squares of list `nums`.',
@@ -1096,7 +1204,8 @@ const QUESTIONS = [
     hint:'total = sum(x**2 for x in nums)',
     answer:'total = sum(x**2 for x in nums)',
     options:['total = sum(x**2 for x in nums)','total = sum([x**2 for x in nums])','total = sum(map(lambda x: x**2, nums))','total = reduce(lambda a,x: a+x**2, nums, 0)'],
-    explanation:'Generator expressions (no brackets) are memory-efficient — values are computed lazily. The list comprehension version builds the full list first.' },
+    explanation:'Generator expressions (no brackets) are memory-efficient — values are computed lazily. The list comprehension version builds the full list first.',
+    output:'>>> nums = [1, 2, 3, 4, 5]\n>>> total = sum(x**2 for x in nums)\n>>> total\n55  # 1+4+9+16+25' },
 
   { cat:'data', label:'data ops',
     prompt:'Read a JSON file "config.json" and parse it into a Python dict `config`.',
@@ -1104,7 +1213,8 @@ const QUESTIONS = [
     hint:'import json\nwith open("config.json") as f:\n    config = json.load(...)',
     answer:'config = json.load(f)',
     options:['config = json.load(f)','config = json.loads(f)','config = json.read(f)','config = f.json()'],
-    explanation:'`json.load(file_obj)` parses from a file. `json.loads(string)` parses from a string. `loads` = "load string".' },
+    explanation:'`json.load(file_obj)` parses from a file. `json.loads(string)` parses from a string. `loads` = "load string".',
+    output:'>>> type(config)\n&lt;class \'dict\'&gt;\n>>> config\n{\'TR\': 2.0, \'n_runs\': 4, \'smoothing_fwhm\': 6, \'subjects\': [\'S001\', \'S002\']}' },
 
   { cat:'data', label:'data ops',
     prompt:'Use `pathlib.Path` to construct a path to "results/output.csv" in a platform-independent way.',
@@ -1112,7 +1222,8 @@ const QUESTIONS = [
     hint:'from pathlib import Path\npath = Path(...) / ...',
     answer:'path = Path("results") / "output.csv"',
     options:['path = Path("results") / "output.csv"','path = "results/output.csv"','path = os.path.join("results", "output.csv")','path = Path("results", "output.csv")'],
-    explanation:'The `/` operator on Path objects builds paths cleanly. Both options 1 and 4 work — option 1 is the most readable idiom.' },
+    explanation:'The `/` operator on Path objects builds paths cleanly. Both options 1 and 4 work — option 1 is the most readable idiom.',
+    output:'>>> path\nPosixPath(\'results/output.csv\')  # on Mac/Linux\n>>> str(path)\n\'results/output.csv\'\n>>> path.suffix\n\'.csv\'\n>>> path.parent\nPosixPath(\'results\')' },
 ];
 
 // ── State ──────────────────────────────────────────────────────────────────
@@ -1185,6 +1296,7 @@ function loadQuestion() {
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';
   document.getElementById('explanation').style.display = 'none';
+  document.getElementById('output-block').style.display = 'none';
   document.getElementById('submit-btn').style.display = '';
   document.getElementById('next-btn').style.display = 'none';
   document.getElementById('streak-banner').style.display = 'none';
@@ -1207,6 +1319,13 @@ function submitAnswer() {
   answered = true;
   document.getElementById('explanation').textContent = current.explanation;
   document.getElementById('explanation').style.display = 'block';
+  const outBody = document.getElementById('output-body');
+  if (current.output) {
+    outBody.innerHTML = current.output;
+  } else {
+    outBody.innerHTML = '<span class="out-none">no return value (None)</span>';
+  }
+  document.getElementById('output-block').style.display = 'block';
   document.getElementById('submit-btn').style.display = 'none';
   document.getElementById('next-btn').style.display = '';
   inp.disabled = true;
