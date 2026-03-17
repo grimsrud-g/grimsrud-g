@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-        /* ─── Page-level overrides & new components ─── */
         :root {
             --stanford-red: #8C1515;
             --stanford-red-light: #B83A3A;
@@ -27,7 +26,6 @@
             color: var(--ink);
         }
 
-        /* ─── Reset style.css flex centering for this page ─── */
         main {
             display: block !important;
             max-width: 900px;
@@ -36,7 +34,6 @@
             min-height: unset !important;
         }
 
-        /* ─── Reset about-card row layout from style.css ─── */
         .about-card {
             display: block !important;
             flex-direction: unset !important;
@@ -48,12 +45,8 @@
             border-radius: 0 !important;
         }
 
-        h2 {
-            color: var(--ink);
-            font-size: 1.85rem;
-        }
+        h2 { color: var(--ink); font-size: 1.85rem; }
 
-        /* ─── Section headers ─── */
         .section-label {
             font-family: 'Lora', serif;
             font-size: 0.72rem;
@@ -87,7 +80,6 @@
             margin: 3rem 0;
         }
 
-        /* ─── Quick-link banner ─── */
         .quick-links {
             display: flex;
             flex-wrap: wrap;
@@ -141,7 +133,6 @@
             box-shadow: 0 4px 14px rgba(26,26,46,0.2);
         }
 
-         /* ─── Research project cards ─── */
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -179,9 +170,7 @@
             transform: translateY(-2px);
         }
 
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
+        .project-card:hover::before { transform: scaleX(1); }
 
         .project-card .proj-status {
             display: inline-block;
@@ -194,15 +183,8 @@
             margin-bottom: 0.75rem;
         }
 
-        .proj-status.ongoing {
-            background: #eaf4ea;
-            color: #2d7a2d;
-        }
-
-        .proj-status.completed {
-            background: #eaeaf8;
-            color: #4040a0;
-        }
+        .proj-status.ongoing { background: #eaf4ea; color: #2d7a2d; }
+        .proj-status.completed { background: #eaeaf8; color: #4040a0; }
 
         .project-card h3 {
             font-family: 'Lora', serif;
@@ -220,11 +202,7 @@
             margin: 0 0 0.9rem;
         }
 
-        .proj-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
+        .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
         .proj-tag {
             background: var(--tag-bg);
@@ -235,7 +213,6 @@
             border-radius: 4px;
         }
 
-        /* ─── Press card ─── */
         .press-card {
             display: flex;
             gap: 1.4rem;
@@ -258,13 +235,10 @@
 
         .press-icon {
             flex-shrink: 0;
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             border-radius: 10px;
             background: #f5ece8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             color: var(--stanford-red);
             font-size: 1.1rem;
         }
@@ -293,12 +267,7 @@
             line-height: 1.6;
         }
 
-        /* ─── Interesting papers ─── */
-        .papers-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+        .papers-list { display: flex; flex-direction: column; gap: 1rem; }
 
         .paper-card {
             display: flex;
@@ -363,77 +332,6 @@
             color: var(--accent-gold);
         }
 
-        /* ─── GitHub repos ─── */
-        .repos-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 640px) {
-            .repos-grid { grid-template-columns: 1fr; }
-        }
-
-        .repo-card {
-            background: var(--card-bg);
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            padding: 1.2rem 1.3rem;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .repo-card:hover {
-            border-color: var(--ink);
-            box-shadow: 0 4px 18px rgba(26,26,46,0.1);
-            transform: translateY(-2px);
-        }
-
-        .repo-card .repo-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--ink);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .repo-card .repo-name i {
-            color: var(--muted);
-            font-size: 0.85rem;
-        }
-
-        .repo-card .repo-desc {
-            font-size: 0.82rem;
-            color: var(--muted);
-            line-height: 1.55;
-        }
-
-        .repo-lang {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.74rem;
-            color: var(--muted);
-            font-weight: 600;
-        }
-
-        .lang-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        .lang-dot.python { background: #3572A5; }
-        .lang-dot.matlab { background: #e16737; }
-        .lang-dot.r { background: #276DC3; }
-        .lang-dot.shell { background: #89e051; }
-
-        /* ─── Blog teaser ─── */
         .blog-teaser {
             background: linear-gradient(135deg, #8c656f 0%, #2d1515 100%);
             border-radius: 16px;
@@ -446,8 +344,7 @@
         .blog-teaser::after {
             content: '✍';
             position: absolute;
-            right: 2rem;
-            top: 50%;
+            right: 2rem; top: 50%;
             transform: translateY(-50%);
             font-size: 4.5rem;
             opacity: 0.08;
@@ -479,12 +376,7 @@
             margin-bottom: 1.4rem;
         }
 
-        .blog-ideas {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.55rem;
-            margin-bottom: 1.5rem;
-        }
+        .blog-ideas { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 1.5rem; }
 
         .blog-idea-tag {
             background: rgba(255,255,255,0.1);
@@ -509,12 +401,8 @@
             transition: all 0.2s;
         }
 
-        .blog-cta:hover {
-            background: #daa035;
-            transform: translateY(-1px);
-        }
+        .blog-cta:hover { background: #daa035; transform: translateY(-1px); }
 
-        /* ─── Responsive ─── */
         @media (max-width: 520px) {
             .quick-links { flex-direction: column; }
             .press-card { flex-direction: column; gap: 0.9rem; }
@@ -529,6 +417,7 @@
             <nav>
                 <a href="index.html">About</a>
                 <a href="research.html" class="active">Projects</a>
+                <a href="pydrill.html">Code Practice</a>
             </nav>
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/gracie-grimsrud-761087206/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -539,12 +428,11 @@
 
     <main>
 
-        <!-- ── HEADER + QUICK LINKS ── -->
         <div style="margin-bottom: 2.4rem;">
             <div class="section-label">Research</div>
             <h1 class="section-title">Projects & Publications</h1>
             <p class="section-desc">
-                See the links below for a glance at my publications, project code repositories, and CV. 
+                See the links below for a glance at my publications, project code repositories, and CV.
             </p>
             <div class="quick-links">
                 <a href="https://scholar.google.com/citations?hl=en&user=W1TP3EwAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener" class="quick-link primary">
@@ -561,8 +449,7 @@
 
         <hr class="divider">
 
-        <!-- ── PRESS ── -->
-        <div class="section-label">Science Explained </div>
+        <div class="section-label">Science Explained</div>
         <h2 class="section-title" style="font-size:1.35rem; margin-bottom:1rem;">Research discussed in posts or the press</h2>
 
         <a href="https://www.brainfacts.org/brain-anatomy-and-function/anatomy/2025/brain-maps-explain-mixed-responses-to-adhd-meds-121725" target="_blank" rel="noopener" class="press-card">
@@ -571,8 +458,8 @@
                 <div class="press-outlet">BrainFacts.org · December 2025</div>
                 <div class="press-title">Brain Maps Explain Mixed Responses to ADHD Meds</div>
                 <div class="press-desc">
-                    Coverage of my research on how individual differences in the somato-cognitive action network (SCAN) 
-                    may underlie why children with ADHD respond so differently to methylphenidate and what precision 
+                    Coverage of my research on how individual differences in the somato-cognitive action network (SCAN)
+                    may underlie why children with ADHD respond so differently to methylphenidate and what precision
                     functional brain mapping could mean for tailoring treatment.
                 </div>
             </div>
@@ -584,16 +471,15 @@
                 <div class="press-outlet">LinkedIn · September 2025</div>
                 <div class="press-title">"Proof that personalized brain network maps + adaptive chronic neuromodulation can transform care for depression" - Dr. Ziad Nahas</div>
                 <div class="press-desc">
-                    Coverage of research conducted by my mentors & collaborators at UMN that is changing the game for depression treatment. 
-                    This is a real patient example of how precision neuroimaging can guide intervention. Through my work at Turing Medical, 
-                    I contribuited to the ongoing mission of making this treatment more widely accessible. 
+                    Coverage of research conducted by my mentors & collaborators at UMN that is changing the game for depression treatment.
+                    This is a real patient example of how precision neuroimaging can guide intervention. Through my work at Turing Medical,
+                    I contributed to the ongoing mission of making this treatment more widely accessible.
                 </div>
             </div>
         </a>
 
         <hr class="divider">
 
-        <!-- ── RESEARCH PROJECTS ── -->
         <div class="section-label">Current & Past Work</div>
         <h2 class="section-title" style="font-size:1.35rem; margin-bottom:0.5rem;">Research Projects</h2>
         <p class="section-desc">A high level overview of my key projects:</p>
@@ -603,7 +489,7 @@
             <div class="project-card">
                 <span class="proj-status ongoing">Ongoing · Stanford</span>
                 <h3>Infant Brain Waves</h3>
-                <p>Under the mentorship of Dr. Anish Mitra and Dr. Adam Pines, we are applying a novel seq-NMF framework to identify indivividual specific waves of brain actiivty. In a cohort of 6 month, 12 month, and 24 month olds, we are inspecting how the activity and shape of these waves changes acrss development</p>
+                <p>Under the mentorship of Dr. Anish Mitra and Dr. Adam Pines, we are applying a novel seq-NMF framework to identify individual specific waves of brain activity. In a cohort of 6 month, 12 month, and 24 month olds, we are inspecting how the activity and shape of these waves changes across development.</p>
                 <div class="proj-tags">
                     <span class="proj-tag">fMRI</span>
                     <span class="proj-tag">Resting-State Dynamics</span>
@@ -624,7 +510,7 @@
             <div class="project-card">
                 <span class="proj-status ongoing">Ongoing · UMN MIDB</span>
                 <h3>PFM: Movie-Watching vs Standard Resting State</h3>
-                <p>Precision Functional Mapping is a powerful tool to map individual differences in functional brain organization. But are these networks stable regardless of what you are watching when your resting-state data is collected? The answer to this question will come from ongoing work continued by Dr. Kate Godfrey at UMN. Work conducted under mentorship of Dr. Steve Nelson at the Masonic Institute for the Developing Brain. </p>
+                <p>Precision Functional Mapping is a powerful tool to map individual differences in functional brain organization. But are these networks stable regardless of what you are watching when your resting-state data is collected? The answer to this question will come from ongoing work continued by Dr. Kate Godfrey at UMN. Work conducted under mentorship of Dr. Steve Nelson at the Masonic Institute for the Developing Brain.</p>
                 <div class="proj-tags">
                     <span class="proj-tag">Functional Networks</span>
                     <span class="proj-tag">Precision Functional Mapping</span>
@@ -646,7 +532,6 @@
 
         <hr class="divider">
 
-        <!-- ── PAPERS I FIND INTERESTING ── -->
         <div class="section-label">Reading List</div>
         <h2 class="section-title" style="font-size:1.35rem; margin-bottom:0.5rem;">Papers I Find Interesting</h2>
         <p class="section-desc">Small selection of some of my favorite papers I have read recently</p>
@@ -675,27 +560,28 @@
 
         <hr class="divider">
 
-        <!-- ── BLOG TEASER ── -->
         <div class="blog-teaser">
-            <div class="blog-eyebrow">Coming Soon</div>
-            <h3>A Blog — Eventually</h3>
+            <div class="blog-eyebrow">Code Practice</div>
+            <h3>PyDrill — Stay Sharp in Python</h3>
             <p>
-                I'm thinking about starting a space to write about ideas that don't fit neatly into papers: 
-                what it's like to begin a PhD, how we talk about neuroscience to non-scientists, 
-                and the occasional musing on a paper that changed how I see something.
+                A gamified Python drill I built to keep my coding skills sharp alongside research.
+                Study the options, type the answer, and track your accuracy across topics relevant
+                to neuroimaging workflows. A work in progress!
             </p>
             <div class="blog-ideas">
-                <span class="blog-idea-tag">🧠 Making fMRI legible to non-scientists</span>
-                <span class="blog-idea-tag">📚 Paper breakdowns for curious outsiders</span>
-                <span class="blog-idea-tag">🎓 First-year PhD reflections</span>
-                <span class="blog-idea-tag">🧒 Science outreach & youth engagement</span>
-                <span class="blog-idea-tag">💡 What we get wrong about mental health research</span>
+                <span class="blog-idea-tag">🐍 Core Python</span>
+                <span class="blog-idea-tag">🔢 NumPy</span>
+                <span class="blog-idea-tag">🐼 pandas</span>
+                <span class="blog-idea-tag">🧠 nibabel</span>
+                <span class="blog-idea-tag">⚙️ Data manipulation</span>
             </div>
-            <a href="/cdn-cgi/l/email-protection#305742595d43424554704344515e565f42541e5554450f4345525a5553440d725c5f5715020059545551" class="blog-cta">
-                <i class="fas fa-paper-plane"></i> Send me a topic idea
+            <a href="pydrill.html" class="blog-cta">
+                <i class="fas fa-terminal"></i> Open PyDrill
             </a>
         </div>
 
     </main>
 
-    <ul class="background-circles">
+    <ul class="background-circles"></ul>
+</body>
+</html>
