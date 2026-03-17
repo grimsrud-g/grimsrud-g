@@ -1,655 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PyDrill — Python Code Challenge</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <title>Gracie Grimsrud - Code Practice</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --stanford-red: #8C1515;
+            --stanford-red-light: #B83A3A;
+            --ink: #1a1a2e;
+            --warm-white: #faf8f5;
+            --muted: #6b6b7b;
+            --card-bg: #ffffff;
+            --border: #e8e2d9;
+            --accent-gold: #c8922a;
+            --tag-bg: #f0ebe3;
+            --green: #2d7a2d;
+            --green-bg: #eaf4ea;
+            --green-border: #a3d9a3;
+            --mono: 'JetBrains Mono', monospace;
+        }
 
-  :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --surface2: #21262d;
-    --border: #30363d;
-    --border2: #484f58;
-    --text: #e6edf3;
-    --text2: #8b949e;
-    --text3: #6e7681;
-    --green: #3fb950;
-    --green-bg: #0d2119;
-    --green-border: #238636;
-    --red: #f85149;
-    --red-bg: #2d0f0e;
-    --red-border: #da3633;
-    --blue: #58a6ff;
-    --blue-bg: #0c1d2e;
-    --blue-border: #1f6feb;
-    --amber: #e3b341;
-    --amber-bg: #2b1d0a;
-    --amber-border: #9e6a03;
-    --purple: #a371f7;
-    --purple-bg: #1a0e2e;
-    --purple-border: #6e40c9;
-    --teal: #39d353;
-    --teal2: #56d364;
-    --mono: 'JetBrains Mono', monospace;
-    --sans: 'Inter', system-ui, sans-serif;
-    --radius: 8px;
-    --radius-lg: 12px;
-  }
+        body {
+            background: var(--warm-white);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--ink);
+        }
 
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+        main {
+            display: block !important;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+            min-height: unset !important;
+        }
 
-  /* ── Header ── */
-  .site-header {
-    width: 100%;
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--surface);
-  }
+        /* ── Page header ── */
+        .section-label {
+            font-family: 'Lora', serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--stanford-red);
+            margin-bottom: 0.4rem;
+        }
 
-  .logo {
-    font-family: var(--mono);
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 1.85rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 0 0 0.6rem;
+            line-height: 1.2;
+        }
 
-  .logo-icon {
-    width: 24px; height: 24px;
-    background: linear-gradient(135deg, #58a6ff 0%, #a371f7 100%);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px;
-  }
+        .section-desc {
+            color: var(--muted);
+            font-size: 0.92rem;
+            max-width: 640px;
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
 
-  .header-sub {
-    font-size: 13px;
-    color: var(--text3);
-    font-family: var(--mono);
-  }
+        .divider {
+            border: none;
+            border-top: 1.5px solid var(--border);
+            margin: 2rem 0;
+        }
 
-  .header-right {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+        /* ── Stats row ── */
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
 
-  .gh-link {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--text2);
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    transition: border-color 0.15s, color 0.15s;
-  }
-  .gh-link:hover { border-color: var(--border2); color: var(--text); }
+        .stat-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 14px;
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 30px;
+            font-size: 0.82rem;
+        }
 
-  /* ── Main layout ── */
-  .main {
-    width: 100%;
-    max-width: 780px;
-    padding: 2rem 1.5rem;
-    flex: 1;
-  }
+        .stat-chip .val {
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
 
-  /* ── Stats bar ── */
-  .stats-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
+        .stat-chip .lbl { color: var(--muted); font-size: 0.75rem; }
+        .val-green { color: var(--green); }
+        .val-red   { color: #a02020; }
+        .val-gold  { color: var(--accent-gold); }
+        .val-ink   { color: var(--ink); }
 
-  .stat-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-size: 13px;
-  }
+        .stat-chip.accuracy { margin-left: auto; }
 
-  .stat-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-  }
+        /* ── Topic filter tabs ── */
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 1.25rem;
+        }
 
-  .stat-val { font-family: var(--mono); font-weight: 600; }
-  .stat-lbl { color: var(--text2); font-size: 12px; }
-  .c-green { color: var(--green); }
-  .c-red { color: var(--red); }
-  .c-blue { color: var(--blue); }
-  .c-amber { color: var(--amber); }
-  .c-purple { color: var(--purple); }
-  .dot-green { background: var(--green); }
-  .dot-red { background: var(--red); }
-  .dot-blue { background: var(--blue); }
-  .dot-amber { background: var(--amber); }
+        .ftab {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.18s;
+            letter-spacing: 0.02em;
+        }
 
-  /* ── Progress ── */
-  .progress-wrap {
-    height: 3px;
-    background: var(--surface2);
-    border-radius: 2px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-  }
+        .ftab:hover { border-color: #c4bcb3; color: var(--ink); }
 
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--blue), var(--purple));
-    border-radius: 2px;
-    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
-  }
+        .ftab.active          { background: var(--ink);          border-color: var(--ink);          color: #fff; }
+        .ftab.active.t-basics { background: #2d7a2d;             border-color: #2d7a2d;             color: #fff; }
+        .ftab.active.t-numpy  { background: #1a5fa0;             border-color: #1a5fa0;             color: #fff; }
+        .ftab.active.t-pandas { background: #5a3a9a;             border-color: #5a3a9a;             color: #fff; }
+        .ftab.active.t-nibabel{ background: var(--stanford-red); border-color: var(--stanford-red); color: #fff; }
+        .ftab.active.t-data   { background: #a06010;             border-color: #a06010;             color: #fff; }
 
-  /* ── Filter tabs ── */
-  .filter-tabs {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
+        /* ── Progress bar ── */
+        .progress-wrap {
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
 
-  .tab {
-    font-size: 12px;
-    font-family: var(--mono);
-    padding: 5px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text2);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .tab:hover { border-color: var(--border2); color: var(--text); }
-  .tab.active { background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); }
-  .tab.active.t-numpy { background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); }
-  .tab.active.t-pandas { background: var(--purple-bg); border-color: var(--purple-border); color: var(--purple); }
-  .tab.active.t-nibabel { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
-  .tab.active.t-data { background: var(--amber-bg); border-color: var(--amber-border); color: var(--amber); }
-  .tab.active.t-basics { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--stanford-red), var(--accent-gold));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
 
-  /* ── Streak banner ── */
-  .streak-banner {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-    background: var(--amber-bg);
-    border: 1px solid var(--amber-border);
-    border-radius: var(--radius);
-    margin-bottom: 1rem;
-    font-size: 13px;
-    font-family: var(--mono);
-    color: var(--amber);
-  }
+        /* ── Streak banner ── */
+        .streak-banner {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 16px;
+            background: #fdf3e0;
+            border: 1.5px solid #e8c87a;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #7a5010;
+        }
 
-  .streak-fire { font-size: 18px; }
+        /* ── Question card ── */
+        .q-card {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: box-shadow 0.2s;
+        }
 
-  /* ── Question card ── */
-  .q-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
+        .q-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
 
-  .q-card-header {
-    padding: 1rem 1.25rem 0.75rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
+        .q-card-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 1.25rem 1.4rem 1rem;
+            border-bottom: 1.5px solid var(--border);
+        }
 
-  .cat-badge {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 12px;
-    white-space: nowrap;
-    margin-top: 2px;
-    flex-shrink: 0;
-  }
+        .cat-badge {
+            flex-shrink: 0;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-top: 3px;
+        }
 
-  .cat-basics  { background: var(--green-bg);  border: 1px solid var(--green-border);  color: var(--green); }
-  .cat-numpy   { background: var(--blue-bg);   border: 1px solid var(--blue-border);   color: var(--blue); }
-  .cat-pandas  { background: var(--purple-bg); border: 1px solid var(--purple-border); color: var(--purple); }
-  .cat-nibabel { background: var(--red-bg);    border: 1px solid var(--red-border);    color: var(--red); }
-  .cat-data    { background: var(--amber-bg);  border: 1px solid var(--amber-border);  color: var(--amber); }
+        .cat-basics  { background: #eaf4ea; color: #2d7a2d;             border: 1px solid #a3d9a3; }
+        .cat-numpy   { background: #e5eef8; color: #1a5fa0;             border: 1px solid #9bbcdf; }
+        .cat-pandas  { background: #eeebf8; color: #5a3a9a;             border: 1px solid #c0b0e8; }
+        .cat-nibabel { background: #f8eaea; color: var(--stanford-red); border: 1px solid #e0aaaa; }
+        .cat-data    { background: #fdf3e0; color: #a06010;             border: 1px solid #e8c87a; }
 
-  .q-prompt {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--text);
-  }
+        .q-prompt {
+            font-size: 0.93rem;
+            line-height: 1.65;
+            color: var(--ink);
+            font-weight: 500;
+        }
 
-  .q-body { padding: 1rem 1.25rem; }
+        .q-body { padding: 1rem 1.4rem 1.25rem; }
 
-  .q-hint-label {
-    font-size: 11px;
-    font-family: var(--mono);
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 6px;
-  }
+        .sublabel {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
 
-  .q-hint {
-    font-family: var(--mono);
-    font-size: 13px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 0.75rem 1rem;
-    color: var(--text2);
-    line-height: 1.7;
-    white-space: pre-wrap;
-    margin-bottom: 1rem;
-  }
+        .q-hint {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            background: #f5f0eb;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            color: #4a4060;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            margin-bottom: 1rem;
+        }
 
-  /* Syntax-ish coloring */
-  .kw { color: #ff7b72; }
-  .fn { color: #d2a8ff; }
-  .st { color: #a5d6ff; }
-  .cm { color: #8b949e; font-style: italic; }
-  .num { color: #79c0ff; }
+        /* ── Options grid ── */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
 
-  /* ── Options grid ── */
-  .options-label {
-    font-size: 11px;
-    font-family: var(--mono);
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 8px;
-  }
+        @media (max-width: 560px) { .options-grid { grid-template-columns: 1fr; } }
 
-  .options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 0;
-  }
+        .opt-btn {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            text-align: left;
+            padding: 9px 12px;
+            background: var(--warm-white);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--ink);
+            transition: border-color 0.15s, background 0.15s;
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.5;
+        }
 
-  .opt-btn {
-    font-family: var(--mono);
-    font-size: 12px;
-    text-align: left;
-    padding: 9px 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    cursor: pointer;
-    color: var(--text2);
-    transition: border-color 0.15s, background 0.15s, color 0.15s;
-    white-space: pre-wrap;
-    word-break: break-all;
-    line-height: 1.5;
-  }
+        .opt-btn:hover { border-color: #c4bcb3; background: #f0ebe3; }
 
-  .opt-btn:hover { border-color: var(--border2); color: var(--text); }
-  .opt-btn.hinted { border-color: var(--blue-border); background: var(--blue-bg); color: var(--blue); }
+        .opt-btn.hinted {
+            border-color: var(--accent-gold);
+            background: #fdf3e0;
+            color: #7a5010;
+        }
 
-  /* ── Input area ── */
-  .input-section { margin-bottom: 1rem; }
+        /* ── Input area ── */
+        .input-wrap { margin-top: 1rem; }
 
-  .input-label {
-    font-size: 11px;
-    font-family: var(--mono);
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 6px;
-  }
+        .type-input {
+            width: 100%;
+            font-family: var(--mono);
+            font-size: 0.88rem;
+            padding: 11px 14px;
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
 
-  .type-input {
-    width: 100%;
-    font-family: var(--mono);
-    font-size: 14px;
-    padding: 11px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.15s, background 0.15s;
-  }
+        .type-input:focus {
+            border-color: var(--stanford-red);
+            box-shadow: 0 0 0 3px rgba(140,21,21,0.08);
+        }
 
-  .type-input:focus { border-color: var(--blue-border); box-shadow: 0 0 0 3px rgba(31,111,235,0.15); }
-  .type-input.correct { border-color: var(--green-border); background: var(--green-bg); color: var(--green); }
-  .type-input.wrong   { border-color: var(--red-border);   background: var(--red-bg);   color: var(--red); }
+        .type-input.correct {
+            border-color: var(--green-border);
+            background: var(--green-bg);
+            color: var(--green);
+        }
 
-  .feedback {
-    margin-top: 8px;
-    font-size: 13px;
-    font-family: var(--mono);
-    min-height: 20px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+        .type-input.wrong {
+            border-color: #e0aaaa;
+            background: #f8eaea;
+            color: var(--stanford-red);
+        }
 
-  .feedback.correct { color: var(--green); }
-  .feedback.wrong   { color: var(--red); }
-  .feedback.hint    { color: var(--blue); }
+        .feedback {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            font-family: var(--mono);
+            min-height: 18px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-  /* ── Explanation ── */
-  .explanation {
-    display: none;
-    margin-top: 1rem;
-    padding: 0.875rem 1rem;
-    background: var(--surface2);
-    border-left: 3px solid var(--blue-border);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    font-size: 13px;
-    color: var(--text2);
-    line-height: 1.65;
-  }
+        .feedback.correct { color: var(--green); }
+        .feedback.wrong   { color: var(--stanford-red); }
+        .feedback.hint    { color: var(--accent-gold); }
 
-  .explanation strong { color: var(--text); font-weight: 500; }
+        /* ── Explanation ── */
+        .explanation {
+            display: none;
+            margin-top: 0.9rem;
+            padding: 0.8rem 1rem;
+            background: #f5f0eb;
+            border-left: 3px solid var(--accent-gold);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
 
-  /* ── Controls ── */
-  .controls {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-top: 1rem;
-  }
+        /* ── Controls ── */
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 1rem;
+        }
 
-  .btn {
-    font-family: var(--sans);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 8px 20px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text);
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
-  }
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1.5px solid var(--border);
+            background: var(--card-bg);
+            color: var(--ink);
+            cursor: pointer;
+            transition: all 0.18s;
+        }
 
-  .btn:hover { background: var(--surface2); border-color: var(--border2); }
-  .btn:active { transform: scale(0.98); }
+        .btn:hover { background: var(--tag-bg); border-color: #c4bcb3; }
+        .btn:active { transform: scale(0.98); }
 
-  .btn-primary { background: var(--blue); border-color: var(--blue); color: #fff; }
-  .btn-primary:hover { background: #79b8ff; border-color: #79b8ff; }
+        .btn-primary {
+            background: var(--stanford-red);
+            border-color: var(--stanford-red);
+            color: #fff;
+        }
 
-  .btn-ghost { background: transparent; border-color: var(--border); color: var(--text2); }
-  .btn-ghost:hover { color: var(--text); border-color: var(--border2); }
+        .btn-primary:hover {
+            background: var(--stanford-red-light);
+            border-color: var(--stanford-red-light);
+        }
 
-  .q-counter {
-    margin-left: auto;
-    font-size: 12px;
-    font-family: var(--mono);
-    color: var(--text3);
-  }
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+        }
 
-  /* ── End screen ── */
-  #end-screen {
-    display: none;
-    text-align: center;
-    padding: 3rem 1rem;
-  }
+        .btn-ghost:hover { color: var(--ink); }
 
-  .end-pct {
-    font-size: 72px;
-    font-weight: 700;
-    font-family: var(--mono);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
+        .q-counter {
+            margin-left: auto;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
 
-  .end-grade { font-size: 16px; color: var(--text2); margin-bottom: 2rem; }
+        /* ── End screen ── */
+        #end-screen {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
 
-  .end-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    max-width: 400px;
-    margin: 0 auto 2rem;
-  }
+        .end-pct {
+            font-family: 'Lora', serif;
+            font-size: 5rem;
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
 
-  .end-cell {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1rem;
-  }
+        .end-grade {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
 
-  .end-cell-val { font-size: 28px; font-weight: 700; font-family: var(--mono); }
-  .end-cell-lbl { font-size: 12px; color: var(--text2); margin-top: 4px; }
+        .end-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 420px;
+            margin: 0 auto 2rem;
+        }
 
-  .cat-breakdown {
-    max-width: 400px;
-    margin: 0 auto 2rem;
-    text-align: left;
-  }
+        .end-cell {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+        }
 
-  .cat-breakdown-title {
-    font-size: 12px;
-    font-family: var(--mono);
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 10px;
-  }
+        .end-cell-val {
+            font-family: var(--mono);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
 
-  .cat-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-    font-size: 13px;
-  }
+        .end-cell-lbl {
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
 
-  .cat-row-name {
-    font-family: var(--mono);
-    width: 80px;
-    color: var(--text2);
-    flex-shrink: 0;
-  }
+        /* ── Per-topic breakdown ── */
+        .cat-breakdown {
+            max-width: 460px;
+            margin: 0 auto 2rem;
+            text-align: left;
+        }
 
-  .cat-bar-wrap {
-    flex: 1;
-    height: 6px;
-    background: var(--surface2);
-    border-radius: 3px;
-    overflow: hidden;
-  }
+        .cat-breakdown-title {
+            font-family: 'Lora', serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--stanford-red);
+            margin-bottom: 10px;
+        }
 
-  .cat-bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.6s ease;
-  }
+        .cat-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
 
-  .cat-row-pct {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text2);
-    width: 36px;
-    text-align: right;
-    flex-shrink: 0;
-  }
+        .cat-row-name {
+            font-family: var(--mono);
+            width: 72px;
+            color: var(--muted);
+            flex-shrink: 0;
+            font-size: 0.72rem;
+        }
 
-  /* ── Responsive ── */
-  @media (max-width: 540px) {
-    .options-grid { grid-template-columns: 1fr; }
-    .stats-bar { gap: 8px; }
-    .end-grid { grid-template-columns: repeat(3, 1fr); }
-    .main { padding: 1.5rem 1rem; }
-  }
+        .cat-bar-wrap {
+            flex: 1;
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
 
-  /* ── Scrollbar ── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+        .cat-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.7s ease;
+        }
 
-  /* ── Footer ── */
-  .site-footer {
-    width: 100%;
-    border-top: 1px solid var(--border);
-    padding: 1rem 2rem;
-    font-size: 12px;
-    color: var(--text3);
-    font-family: var(--mono);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-</style>
+        .cat-row-pct {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--muted);
+            width: 34px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="navbar">
+            <div class="navbar-logo">Gracie Grimsrud</div>
+            <nav>
+                <a href="index.html">About</a>
+                <a href="research.html">Projects</a>
+                <a href="pydrill.html" class="active">Code Practice</a>
+            </nav>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/gracie-grimsrud-761087206/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?hl=en&user=W1TP3EwAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                <a href="https://github.com/grimsrud-g" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:grimsrud@stanford.edu" title="Email"><i class="fa fa-envelope"></i></a>
+            </div>
+        </div>
+    </header>
 
-<header class="site-header">
-  <div class="logo">
-    <div class="logo-icon">&#x3E;</div>
-    PyQuest
-  </div>
-  <span class="header-sub">/ python code challenge</span>
-  <div class="header-right">
-    <a class="gh-link" href="https://github.com" target="_blank">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-      GitHub
-    </a>
-  </div>
-</header>
+    <main>
 
-<main class="main">
+        <!-- Page header -->
+        <div style="margin-bottom: 1.5rem;">
+            <div class="section-label">Code Practice</div>
+            <h1 class="section-title">PyDrill</h1>
+            <p class="section-desc">
+                A gamified Python drill for staying sharp — covering core Python, NumPy, pandas, nibabel, and data manipulation.
+                Study the options, then <em>type</em> the answer to advance. Press Enter to submit or move on.
+            </p>
+        </div>
 
-  <div class="stats-bar">
-    <div class="stat-pill">
-      <span class="stat-dot dot-green"></span>
-      <span class="stat-val c-green" id="stat-correct">0</span>
-      <span class="stat-lbl">correct</span>
-    </div>
-    <div class="stat-pill">
-      <span class="stat-dot dot-red"></span>
-      <span class="stat-val c-red" id="stat-wrong">0</span>
-      <span class="stat-lbl">missed</span>
-    </div>
-    <div class="stat-pill">
-      <span class="stat-dot dot-amber"></span>
-      <span class="stat-val c-amber" id="stat-streak">0</span>
-      <span class="stat-lbl">streak</span>
-    </div>
-    <div class="stat-pill" style="margin-left:auto;">
-      <span class="stat-dot dot-blue"></span>
-      <span class="stat-val c-blue" id="stat-pct">—</span>
-      <span class="stat-lbl">accuracy</span>
-    </div>
-  </div>
+        <hr class="divider">
 
-  <div class="filter-tabs" id="filter-tabs">
-    <button class="tab active" data-cat="all" onclick="setFilter(this,'all')">all topics</button>
-    <button class="tab t-basics"  data-cat="basics"  onclick="setFilter(this,'basics')">basics</button>
-    <button class="tab t-numpy"   data-cat="numpy"   onclick="setFilter(this,'numpy')">numpy</button>
-    <button class="tab t-pandas"  data-cat="pandas"  onclick="setFilter(this,'pandas')">pandas</button>
-    <button class="tab t-nibabel" data-cat="nibabel" onclick="setFilter(this,'nibabel')">nibabel</button>
-    <button class="tab t-data"    data-cat="data"    onclick="setFilter(this,'data')">data ops</button>
-  </div>
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-chip">
+                <span class="val val-green" id="stat-correct">0</span>
+                <span class="lbl">correct</span>
+            </div>
+            <div class="stat-chip">
+                <span class="val val-red" id="stat-wrong">0</span>
+                <span class="lbl">missed</span>
+            </div>
+            <div class="stat-chip">
+                <span class="val val-gold" id="stat-streak">0</span>
+                <span class="lbl">streak</span>
+            </div>
+            <div class="stat-chip accuracy">
+                <span class="val val-ink" id="stat-pct">—</span>
+                <span class="lbl">accuracy</span>
+            </div>
+        </div>
 
-  <div class="progress-wrap">
-    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-  </div>
+        <!-- Filter tabs -->
+        <div class="filter-tabs">
+            <button class="ftab active"      onclick="setFilter(this,'all')">all topics</button>
+            <button class="ftab t-basics"    onclick="setFilter(this,'basics')">basics</button>
+            <button class="ftab t-numpy"     onclick="setFilter(this,'numpy')">numpy</button>
+            <button class="ftab t-pandas"    onclick="setFilter(this,'pandas')">pandas</button>
+            <button class="ftab t-nibabel"   onclick="setFilter(this,'nibabel')">nibabel</button>
+            <button class="ftab t-data"      onclick="setFilter(this,'data')">data ops</button>
+        </div>
 
-  <div class="streak-banner" id="streak-banner">
-    <span class="streak-fire">&#128293;</span>
-    <span id="streak-text"></span>
-  </div>
+        <!-- Progress bar -->
+        <div class="progress-wrap">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
 
-  <!-- Quiz area -->
-  <div id="quiz-area">
+        <!-- Streak banner -->
+        <div class="streak-banner" id="streak-banner">
+            <i class="fas fa-fire" style="color:var(--accent-gold)"></i>
+            <span id="streak-text"></span>
+        </div>
 
-    <div class="q-card">
-      <div class="q-card-header">
-        <span class="cat-badge" id="q-cat-badge"></span>
-        <p class="q-prompt" id="q-prompt"></p>
-      </div>
-      <div class="q-body">
-        <div class="q-hint-label">context</div>
-        <div class="q-hint" id="q-hint"></div>
-        <div class="options-label">options — study, then type your answer below</div>
-        <div class="options-grid" id="q-options"></div>
-      </div>
-    </div>
+        <!-- Quiz area -->
+        <div id="quiz-area">
 
-    <div class="input-section">
-      <div class="input-label">your answer</div>
-      <input class="type-input" id="type-input" placeholder="type the correct line of code..." autocomplete="off" spellcheck="false" />
-      <div class="feedback" id="feedback"></div>
-      <div class="explanation" id="explanation"></div>
-    </div>
+            <div class="q-card">
+                <div class="q-card-top">
+                    <span class="cat-badge" id="q-cat-badge"></span>
+                    <p class="q-prompt" id="q-prompt"></p>
+                </div>
+                <div class="q-body">
+                    <div class="sublabel">context</div>
+                    <div class="q-hint" id="q-hint"></div>
+                    <div class="sublabel">options — study these, then type your answer below</div>
+                    <div class="options-grid" id="q-options"></div>
+                </div>
+            </div>
 
-    <div class="controls">
-      <button class="btn btn-primary" id="submit-btn" onclick="submitAnswer()">Check ↵</button>
-      <button class="btn" id="next-btn" style="display:none" onclick="nextQuestion()">Next →</button>
-      <button class="btn btn-ghost" onclick="showHint()" id="hint-btn">Hint</button>
-      <span class="q-counter" id="q-counter"></span>
-    </div>
-  </div>
+            <div class="input-wrap">
+                <div class="sublabel">your answer</div>
+                <input class="type-input" id="type-input"
+                       placeholder="type the correct line of code..."
+                       autocomplete="off" spellcheck="false" />
+                <div class="feedback" id="feedback"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
 
-  <!-- End screen -->
-  <div id="end-screen">
-    <div class="end-pct" id="end-pct"></div>
-    <div class="end-grade" id="end-grade"></div>
-    <div class="end-grid">
-      <div class="end-cell">
-        <div class="end-cell-val c-green" id="end-correct">0</div>
-        <div class="end-cell-lbl">correct</div>
-      </div>
-      <div class="end-cell">
-        <div class="end-cell-val c-red" id="end-wrong">0</div>
-        <div class="end-cell-lbl">missed</div>
-      </div>
-      <div class="end-cell">
-        <div class="end-cell-val c-blue" id="end-total">0</div>
-        <div class="end-cell-lbl">total</div>
-      </div>
-    </div>
-    <div class="cat-breakdown" id="cat-breakdown"></div>
-    <button class="btn btn-primary" onclick="restartGame()">Play Again</button>
-  </div>
+            <div class="controls">
+                <button class="btn btn-primary" id="submit-btn" onclick="submitAnswer()">Check ↵</button>
+                <button class="btn" id="next-btn" style="display:none" onclick="nextQuestion()">Next →</button>
+                <button class="btn btn-ghost" onclick="showHint()">Hint</button>
+                <span class="q-counter" id="q-counter"></span>
+            </div>
 
-</main>
+        </div>
 
-<footer class="site-footer">
-  <span>PyQuest — python practice tool</span>
-  <span id="footer-count"></span>
-</footer>
+        <!-- End screen -->
+        <div id="end-screen">
+            <div class="end-pct" id="end-pct"></div>
+            <div class="end-grade" id="end-grade"></div>
+            <div class="end-grid">
+                <div class="end-cell">
+                    <div class="end-cell-val val-green" id="end-correct">0</div>
+                    <div class="end-cell-lbl">correct</div>
+                </div>
+                <div class="end-cell">
+                    <div class="end-cell-val val-red" id="end-wrong">0</div>
+                    <div class="end-cell-lbl">missed</div>
+                </div>
+                <div class="end-cell">
+                    <div class="end-cell-val val-ink" id="end-total">0</div>
+                    <div class="end-cell-lbl">total</div>
+                </div>
+            </div>
+            <div class="cat-breakdown" id="cat-breakdown"></div>
+            <button class="btn btn-primary" onclick="restartGame()">Play Again</button>
+        </div>
+
+    </main>
+
+    <ul class="background-circles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
 
 <script>
 const QUESTIONS = [
@@ -722,7 +694,7 @@ const QUESTIONS = [
     hint:'sentence = " ".join(...)',
     answer:'sentence = " ".join(words)',
     options:['sentence = " ".join(words)','sentence = words.join(" ")','sentence = str(words)','sentence = concat(words, " ")'],
-    explanation:'`str.join(iterable)` is called on the separator, not the list. This is a common Python gotcha.' },
+    explanation:'`str.join(iterable)` is called on the separator, not the list. A common Python gotcha.' },
 
   { cat:'basics', label:'basics',
     prompt:'Get the last 3 elements of list `items` using slicing.',
@@ -746,18 +718,18 @@ const QUESTIONS = [
     explanation:'`isinstance()` is preferred because it handles subclasses. `type(x) == int` is stricter and misses subclasses.' },
 
   { cat:'basics', label:'basics',
-    prompt:'Use `map()` to apply a function `double` to every element of list `nums`, returning a list.',
+    prompt:'Use `map()` to apply function `double` to every element of list `nums`, returning a list.',
     hint:'result = list(map(...))',
     answer:'result = list(map(double, nums))',
     options:['result = list(map(double, nums))','result = map(double, nums)','result = list(map(lambda x: double(x), nums))','result = [map(double, x) for x in nums]'],
-    explanation:'`map()` returns a lazy iterator, so `list()` materializes it. Both options 1 and 3 are correct; option 1 is cleaner.' },
+    explanation:'`map()` returns a lazy iterator — `list()` materializes it. Options 1 and 3 are both correct; option 1 is cleaner.' },
 
   { cat:'basics', label:'basics',
     prompt:'Swap the values of variables `a` and `b` in a single line without a temp variable.',
     hint:'a, b = ...',
     answer:'a, b = b, a',
     options:['a, b = b, a','temp = a; a = b; b = temp','a = b; b = a','(a, b) = (b, a)'],
-    explanation:'Python evaluates the right side first, then unpacks. This is one of the most elegant Pythonic idioms.' },
+    explanation:'Python evaluates the right side fully before unpacking. One of the most elegant Pythonic idioms.' },
 
   // ── NUMPY ──────────────────────────────────────────────────────────────
   { cat:'numpy', label:'numpy',
@@ -817,7 +789,7 @@ const QUESTIONS = [
     explanation:'`.shape` is a tuple of dimension sizes like (rows, cols). `.size` is the total number of elements.' },
 
   { cat:'numpy', label:'numpy',
-    prompt:'Compute the standard deviation of all elements in array `data` along axis 0.',
+    prompt:'Compute the standard deviation of array `data` along axis 0.',
     hint:'sd = np.std(data, axis=...)',
     answer:'sd = np.std(data, axis=0)',
     options:['sd = np.std(data, axis=0)','sd = np.std(data)','sd = data.std(axis=1)','sd = np.var(data, axis=0)'],
@@ -885,7 +857,7 @@ const QUESTIONS = [
     hint:'df = df.dropna(...)',
     answer:'df = df.dropna()',
     options:['df = df.dropna()','df.dropna(inplace=True)','df = df.fillna(method="drop")','df = df[df.notnull()]'],
-    explanation:'`dropna()` returns a new DataFrame. `inplace=True` modifies `df` directly without reassignment — both patterns are valid.' },
+    explanation:'`dropna()` returns a new DataFrame. `inplace=True` modifies `df` directly without reassignment — both are valid.' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Sort `df` by "timestamp" in descending order into `df_sorted`.',
@@ -899,7 +871,7 @@ const QUESTIONS = [
     hint:'df["bmi"] = ...',
     answer:'df["bmi"] = df["weight"] / df["height"] ** 2',
     options:['df["bmi"] = df["weight"] / df["height"] ** 2','df.bmi = df.weight / df.height ** 2','df["bmi"] = df["weight"] / (df["height"] * df["height"])','df.insert("bmi", df["weight"] / df["height"]**2)'],
-    explanation:'Column assignment with `df["col"] = expr` is the standard way. Both options 1 and 3 are correct; 1 is more concise.' },
+    explanation:'Column assignment with `df["col"] = expr` is standard. Options 1 and 3 are both correct; 1 is more concise.' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Get the number of non-null values in each column of `df`.',
@@ -913,7 +885,7 @@ const QUESTIONS = [
     hint:'merged = pd.merge(left, right, on=..., how=...)',
     answer:'merged = pd.merge(left, right, on="id", how="inner")',
     options:['merged = pd.merge(left, right, on="id", how="inner")','merged = left.join(right, on="id")','merged = pd.merge(left, right, on="id")','merged = left.merge(right, on="id", how="inner")'],
-    explanation:'`pd.merge()` is the most explicit. `how="inner"` is actually the default, so option 3 also works. Options 1 and 4 are both correct.' },
+    explanation:'`pd.merge()` is the most explicit. `how="inner"` is the default, so option 3 also works. Options 1 and 4 are both correct.' },
 
   { cat:'pandas', label:'pandas',
     prompt:'Reset the index of `df` and drop the old index.',
@@ -935,7 +907,7 @@ const QUESTIONS = [
     hint:'img = nib.load(...)',
     answer:'img = nib.load("brain.nii.gz")',
     options:['img = nib.load("brain.nii.gz")','img = nib.read("brain.nii.gz")','img = nib.Nifti1Image("brain.nii.gz")','img = nib.open("brain.nii.gz")'],
-    explanation:'`nib.load()` is the universal nibabel loader. It returns an image object — the data array is not loaded yet.' },
+    explanation:'`nib.load()` is the universal nibabel loader. It returns an image object — the data array is not loaded until requested.' },
 
   { cat:'nibabel', label:'nibabel',
     prompt:'Extract the raw numpy data array from nibabel image `img`.',
@@ -1051,18 +1023,11 @@ const QUESTIONS = [
     explanation:'`json.load(file_obj)` parses from a file. `json.loads(string)` parses from a string. `loads` = "load string".' },
 
   { cat:'data', label:'data ops',
-    prompt:'Use `pathlib.Path` to construct a file path to "results/output.csv" in a platform-independent way.',
+    prompt:'Use `pathlib.Path` to construct a path to "results/output.csv" in a platform-independent way.',
     hint:'from pathlib import Path\npath = Path(...) / ...',
     answer:'path = Path("results") / "output.csv"',
     options:['path = Path("results") / "output.csv"','path = "results/output.csv"','path = os.path.join("results", "output.csv")','path = Path("results", "output.csv")'],
     explanation:'The `/` operator on Path objects builds paths cleanly. Both options 1 and 4 work — option 1 is the most readable idiom.' },
-
-  { cat:'data', label:'data ops',
-    prompt:'Use a `with` statement to write a list of strings `lines` to file "out.txt", one per line.',
-    hint:'with open("out.txt", "w") as f:\n    f.writelines(...)',
-    answer:'f.writelines(lines)',
-    options:['f.writelines(lines)','f.write(lines)','f.writeline(lines)','f.write("\\n".join(lines))'],
-    explanation:'`writelines()` writes each string without adding newlines — include `\\n` in each string. `write()` only takes a single string.' },
 ];
 
 // ── State ──────────────────────────────────────────────────────────────────
@@ -1070,10 +1035,7 @@ let queue = [], current = null, idx = 0;
 let correct = 0, wrong = 0, streak = 0;
 let answered = false, hintUsed = false;
 let catFilter = 'all';
-let catStats = {};  // { cat: { correct, wrong } }
-
-document.getElementById('footer-count').textContent =
-  `${QUESTIONS.length} questions across 5 topics`;
+let catStats = {};
 
 function shuffle(arr) {
   const a = [...arr];
@@ -1086,16 +1048,13 @@ function shuffle(arr) {
 
 function setFilter(btn, cat) {
   catFilter = cat;
-  document.querySelectorAll('.tab').forEach(b => {
-    b.classList.remove('active');
-  });
+  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   restartGame();
 }
 
 function restartGame() {
-  correct = 0; wrong = 0; streak = 0; idx = 0;
-  catStats = {};
+  correct = 0; wrong = 0; streak = 0; idx = 0; catStats = {};
   const pool = catFilter === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.cat === catFilter);
   queue = shuffle(pool);
   updateStats();
@@ -1107,8 +1066,7 @@ function restartGame() {
 function loadQuestion() {
   if (idx >= queue.length) { showEnd(); return; }
   current = queue[idx];
-  answered = false;
-  hintUsed = false;
+  answered = false; hintUsed = false;
 
   document.getElementById('q-counter').textContent = `${idx + 1} / ${queue.length}`;
   document.getElementById('progress-fill').style.width = `${(idx / queue.length) * 100}%`;
@@ -1137,17 +1095,13 @@ function loadQuestion() {
   });
 
   const inp = document.getElementById('type-input');
-  inp.value = '';
-  inp.className = 'type-input';
-  inp.disabled = false;
-
+  inp.value = ''; inp.className = 'type-input'; inp.disabled = false;
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';
   document.getElementById('explanation').style.display = 'none';
   document.getElementById('submit-btn').style.display = '';
   document.getElementById('next-btn').style.display = 'none';
   document.getElementById('streak-banner').style.display = 'none';
-
   inp.focus();
 }
 
@@ -1159,37 +1113,35 @@ function submitAnswer() {
   const val = norm(inp.value);
   const ans = norm(current.answer);
   const fb = document.getElementById('feedback');
-  const exp = document.getElementById('explanation');
 
   if (!val) { fb.textContent = 'type something first'; fb.className = 'feedback hint'; return; }
 
   if (!catStats[current.cat]) catStats[current.cat] = { correct: 0, wrong: 0 };
 
+  answered = true;
+  document.getElementById('explanation').textContent = current.explanation;
+  document.getElementById('explanation').style.display = 'block';
+  document.getElementById('submit-btn').style.display = 'none';
+  document.getElementById('next-btn').style.display = '';
+  inp.disabled = true;
+
   if (val === ans) {
     correct++; streak++;
     catStats[current.cat].correct++;
-    answered = true;
     inp.className = 'type-input correct';
-    fb.textContent = streak >= 3 ? `correct!  ${streak} in a row` : 'correct!';
+    fb.textContent = streak >= 3 ? `correct!  ${streak}-answer streak!` : 'correct!';
     fb.className = 'feedback correct';
     if (streak >= 3) {
-      document.getElementById('streak-text').textContent = `${streak}-answer streak — keep it up!`;
+      document.getElementById('streak-text').textContent = `${streak} correct in a row — keep it up!`;
       document.getElementById('streak-banner').style.display = 'flex';
     }
   } else {
     wrong++; streak = 0;
     catStats[current.cat].wrong++;
-    answered = true;
     inp.className = 'type-input wrong';
-    fb.innerHTML = `missed &mdash; answer: <strong style="color:var(--red)">${current.answer}</strong>`;
+    fb.innerHTML = `not quite &mdash; answer: <strong>${current.answer}</strong>`;
     fb.className = 'feedback wrong';
   }
-
-  exp.textContent = current.explanation;
-  exp.style.display = 'block';
-  document.getElementById('submit-btn').style.display = 'none';
-  document.getElementById('next-btn').style.display = '';
-  inp.disabled = true;
   updateStats();
 }
 
@@ -1201,7 +1153,7 @@ function showHint() {
     if (norm(b.textContent) === ans) b.classList.add('hinted');
   });
   const fb = document.getElementById('feedback');
-  fb.textContent = 'hint: the correct option is highlighted';
+  fb.textContent = 'hint: the correct option is highlighted in gold';
   fb.className = 'feedback hint';
 }
 
@@ -1218,14 +1170,13 @@ function updateStats() {
 
 function showEnd() {
   document.getElementById('quiz-area').style.display = 'none';
-  const end = document.getElementById('end-screen');
-  end.style.display = 'block';
+  document.getElementById('end-screen').style.display = 'block';
 
   const total = correct + wrong;
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
   const pctEl = document.getElementById('end-pct');
   pctEl.textContent = pct + '%';
-  pctEl.style.color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--amber)' : 'var(--red)';
+  pctEl.style.color = pct >= 80 ? '#2d7a2d' : pct >= 60 ? '#a06010' : '#8C1515';
 
   const grades = [
     [90,'Outstanding — Python expert territory'],
@@ -1234,17 +1185,14 @@ function showEnd() {
     [60,'Getting there — keep practicing'],
     [0,'Keep studying — you\'ll get there!']
   ];
-  document.getElementById('end-grade').textContent =
-    grades.find(([t]) => pct >= t)[1];
-
+  document.getElementById('end-grade').textContent = grades.find(([t]) => pct >= t)[1];
   document.getElementById('end-correct').textContent = correct;
   document.getElementById('end-wrong').textContent = wrong;
   document.getElementById('end-total').textContent = total;
 
-  const bd = document.getElementById('cat-breakdown');
   const cats = ['basics','numpy','pandas','nibabel','data'];
   const catNames = { basics:'basics', numpy:'numpy', pandas:'pandas', nibabel:'nibabel', data:'data ops' };
-  const catColors = { basics:'var(--green)', numpy:'var(--blue)', pandas:'var(--purple)', nibabel:'var(--red)', data:'var(--amber)' };
+  const catColors = { basics:'#2d7a2d', numpy:'#1a5fa0', pandas:'#5a3a9a', nibabel:'#8C1515', data:'#a06010' };
 
   let html = '<div class="cat-breakdown-title">by topic</div>';
   cats.forEach(c => {
@@ -1258,16 +1206,12 @@ function showEnd() {
       <span class="cat-row-pct">${p}%</span>
     </div>`;
   });
-  bd.innerHTML = html;
-
+  document.getElementById('cat-breakdown').innerHTML = html;
   document.getElementById('progress-fill').style.width = '100%';
 }
 
 document.getElementById('type-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    if (answered) nextQuestion();
-    else submitAnswer();
-  }
+  if (e.key === 'Enter') { answered ? nextQuestion() : submitAnswer(); }
 });
 
 restartGame();
